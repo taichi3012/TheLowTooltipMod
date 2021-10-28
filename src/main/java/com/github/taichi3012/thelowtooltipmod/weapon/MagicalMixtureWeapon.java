@@ -10,5 +10,6 @@ public class MagicalMixtureWeapon extends Weapon{
 
     public MagicalMixtureWeapon(ItemStack item) {
         super(item);
+        //a
     }
 }
