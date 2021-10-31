@@ -22,6 +22,8 @@ public class ItemNBTUtil {
         for (int i = 0; i < lore.tagCount(); i++ )
             result.add(lore.getStringTagAt(i));
 
+        if (result.size() == 0) return null;
+
         return result;
     }
 }

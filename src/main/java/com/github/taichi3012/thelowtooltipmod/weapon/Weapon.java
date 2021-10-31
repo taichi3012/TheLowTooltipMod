@@ -52,8 +52,9 @@ public class Weapon {
 
         damages.keySet().stream().sorted(comparator.reversed())
                 .forEach(category -> {
-                    double normalDmg = Math.round(damages.get(category) * 1000d) / 1000d;
-                    double criticalDmg = Math.round(damages.get(category) * 1.15 * 1000d) / 1000d;
+                    double damage = damages.get(category);
+                    double normalDmg = DamageCalcUtil.getRoundDamage(damage);
+                    double criticalDmg = DamageCalcUtil.getCriticalDamage(damage);
 
                     result.add(StringUtils.repeat(' ', 2) + category.getDisplayColor() + category.getName() + ":");
                     result.add(String.format(StringUtils.repeat(' ', 4) + "§6+%s§c§o(+%s)", normalDmg, criticalDmg));

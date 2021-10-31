@@ -50,4 +50,12 @@ public class DamageCalcUtil {
         removeCategory.forEach(damages::remove);
     }
 
+    public static double getRoundDamage(double damage) {
+        return Math.round(damage * 1000d) / 1000d;
+    }
+
+    public static double getCriticalDamage(double damage) {
+        return getRoundDamage(damage * 1.15);
+    }
+
 }
