@@ -53,8 +53,8 @@ public class Skill125 implements IWeaponSkillAble {
         double priestCoolTime = 132.0d * TheLowTooltipModConfig.getQuickSpellTalkMultiply() * MagicStoneUtil.getCasterMultiply(weaponData) + 30.0d;
 
         result.add("§3[クールタイム]");
-        result.add(String.format(StringUtils.repeat(' ', 2) + "§7通常:§e+%1$s", JavaUtil.digitRound(normalCoolTime, 2.0d)));
-        result.add(String.format(StringUtils.repeat(' ', 2) + "§7プリースト:§e+%1$s", JavaUtil.digitRound(priestCoolTime, 2.0d)));
+        result.add(String.format(StringUtils.repeat(' ', 2) + "§7通常:§e%1$s秒", JavaUtil.digitRound(normalCoolTime, 2.0d)));
+        result.add(String.format(StringUtils.repeat(' ', 2) + "§7プリースト:§e%1$s秒", JavaUtil.digitRound(priestCoolTime, 2.0d)));
 
         return result;
     }

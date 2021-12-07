@@ -2,7 +2,7 @@
 {
   "modid": "thelowtooltipmod",
   "name": "Thelow Tooltip Mod",
-  "description": "TheLow",
+  "description": "TheLowで武器のダメージやスキルのCTを表示させることのできるModです。",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
