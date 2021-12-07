@@ -1,14 +1,14 @@
 package com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone;
 
 public enum MagicStoneLevelType {
-    LEVEL1(1.1, 0.95),
-    LEVEL2(1.15, 0.9),
-    LEVEL3(1.23, 0.84),
-    LEVEL4(1.35, 0.77),
-    LEVEL4_5(1.4, 0.72),
-    LEVEL5(1.55, 0.6),
-    LEGEND(1.55, 0.6),
-    UNKNOWN_LEVEL(1d, 1d);
+    LEVEL1(1.1d, 0.95d),
+    LEVEL2(1.15d, 0.9d),
+    LEVEL3(1.23d, 0.84d),
+    LEVEL4(1.35d, 0.77d),
+    LEVEL4_5(1.4d, 0.72d),
+    LEVEL5(1.55d, 0.6d),
+    LEGEND(1.55d, 0.6d),
+    UNKNOWN_LEVEL(1.0d, 1.0d);
 
     private final double damageMultiply;
     private final double coolTimeMultiply;

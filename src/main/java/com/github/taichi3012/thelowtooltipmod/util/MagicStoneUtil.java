@@ -1,6 +1,10 @@
 package com.github.taichi3012.thelowtooltipmod.util;
 
-import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.*;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.IMagicStone;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.MagicStoneData;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.PassiveMagicStoneType;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.SpecialMagicStoneType;
+import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,19 +15,38 @@ import static com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.Oth
 
 public class MagicStoneUtil {
     public static MagicStoneData getDataByNBTValue(String value) {
-        MagicStone resultMS = null;
-        List<MagicStone> allMagicStone = new ArrayList<>();
+        IMagicStone resultMS = null;
+        List<IMagicStone> allMagicStone = new ArrayList<>();
         allMagicStone.addAll(Arrays.asList(SpecialMagicStoneType.values()));
         allMagicStone.addAll(Arrays.asList(PassiveMagicStoneType.values()));
 
-        for (MagicStone ms : allMagicStone) {
-            if (value.contains(ms.getID())) {
+        for (IMagicStone ms : allMagicStone) {
+            if (value.contains(ms.getId())) {
                 resultMS = ms;
                 break;
             }
         }
 
-        if (resultMS == null) return new MagicStoneData(UNKNOWN_MAGIC_STONE, UNKNOWN_LEVEL);
-        return new MagicStoneData(resultMS, getLevelByID(value.replace(resultMS.getID(), "")));
+        if (resultMS == null)
+            return new MagicStoneData(UNKNOWN_MAGIC_STONE, UNKNOWN_LEVEL);
+        return new MagicStoneData(resultMS, getLevelByID(value.replace(resultMS.getId(), "")));
+    }
+
+    public static double getCasterMultiply(WeaponData weaponData) {
+        if (weaponData.getMagicStoneList() == null)
+            return 1.0d;
+        return weaponData.getMagicStoneList().stream()
+                .filter(magicStoneData -> magicStoneData.getMagicStone().equals(PassiveMagicStoneType.CASTER_MAGIC_STONE))
+                .mapToDouble(magicStoneData -> magicStoneData.getLevel().getCoolTimeMultiply())
+                .reduce(1.0d, (a, b) -> a * b);
+    }
+
+    public static int getLegendValue(WeaponData weaponData) {
+        if (weaponData.getMagicStoneList() == null)
+            return 0;
+        return weaponData.getMagicStoneList().stream()
+                .filter(magicStoneData -> magicStoneData.getLevel().equals(LEGEND))
+                .mapToInt(lv -> 1)
+                .sum();
     }
 }

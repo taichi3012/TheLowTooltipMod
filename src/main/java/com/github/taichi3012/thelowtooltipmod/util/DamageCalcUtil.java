@@ -1,7 +1,7 @@
 package com.github.taichi3012.thelowtooltipmod.util;
 
 import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
-import com.github.taichi3012.thelowtooltipmod.damagefactor.SpecialDamageAvailable;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.SpecialAttackable;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.UniqueSpecialType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.SpecialMagicStoneType;
 
@@ -34,28 +34,19 @@ public class DamageCalcUtil {
         return damages;
     }
 
-    private static void removeRedundancy(Map<ResultCategoryType, Double> damages, SpecialDamageAvailable eqAvailable, ResultCategoryType eqCategory) {
-        List<ResultCategoryType> removeCategory = new ArrayList<>();
-
+    private static void removeRedundancy(Map<ResultCategoryType, Double> damages, SpecialAttackable eqFactor, ResultCategoryType eqCategory) {
         //比べる基準となるカテゴリーが存在しない場合は返す
-        if (!damages.containsKey(eqCategory)) return;
+        if (!damages.containsKey(eqCategory))
+            return;
 
-        damages.keySet().stream()
-                .filter(type -> type != eqCategory)
-                .filter(eqAvailable::isAvailable)
-                .filter(category -> Objects.equals(damages.get(eqCategory), damages.get(category)))
-                .forEach(removeCategory::add);
-
-        //直接削除処理をすると例外が発生するため削除する要素をリスト化してから削除
-        removeCategory.forEach(damages::remove);
+        damages.keySet().removeIf(next -> !eqCategory.equals(next) && eqFactor.isAvailable(next) && Objects.equals(damages.get(eqCategory), damages.get(next)));
     }
 
-    public static double getRoundDamage(double damage) {
-        return Math.round(damage * 1000d) / 1000d;
+    public static double roundDamage(double damage) {
+        return JavaUtil.digitRound(damage, 3.0d);
     }
 
-    public static double getCriticalDamage(double damage) {
-        return getRoundDamage(damage * 1.15);
+    public static double roundCriticalDamage(double damage) {
+        return roundDamage(damage * 1.15);
     }
-
 }

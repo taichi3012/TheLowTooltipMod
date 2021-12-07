@@ -1,6 +1,6 @@
 package com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone;
 
-public enum OtherMagicStoneType implements MagicStone{
+public enum OtherMagicStoneType implements IMagicStone {
     UNKNOWN_MAGIC_STONE("Unknown", "");
 
     private final String name;
@@ -17,7 +17,7 @@ public enum OtherMagicStoneType implements MagicStone{
     }
 
     @Override
-    public String getID() {
+    public String getId() {
         return this.id;
     }
 }

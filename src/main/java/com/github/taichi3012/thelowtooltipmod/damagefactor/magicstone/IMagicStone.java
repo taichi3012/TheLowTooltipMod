@@ -1,6 +1,6 @@
 package com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone;
 
-public interface MagicStone {
+public interface IMagicStone {
     String getName();
-    String getID();
+    String getId();
 }

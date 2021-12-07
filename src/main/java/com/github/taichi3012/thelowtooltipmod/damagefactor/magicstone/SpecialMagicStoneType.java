@@ -1,11 +1,11 @@
 package com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone;
 
 import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
-import com.github.taichi3012.thelowtooltipmod.damagefactor.SpecialDamageAvailable;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.SpecialAttackable;
 
 import java.util.function.Predicate;
 
-public enum SpecialMagicStoneType implements MagicStone, SpecialDamageAvailable {
+public enum SpecialMagicStoneType implements IMagicStone, SpecialAttackable {
     SKELETON_MAGIC_STONE("スケルトン特攻", "skeleton_attack", c -> c == ResultCategoryType.SKELETON_CATEGORY),
     ZOMBIE_MAGIC_STONE("ゾンビ特攻", "zombie_attack", SpecialMagicStoneType::isZombie),
     LIVING_MAGIC_STONE("生物特攻", "living_attack", SpecialMagicStoneType::isLiving);
@@ -48,7 +48,7 @@ public enum SpecialMagicStoneType implements MagicStone, SpecialDamageAvailable 
     }
 
     @Override
-    public String getID() {
+    public String getId() {
         return id;
     }
 
@@ -56,6 +56,7 @@ public enum SpecialMagicStoneType implements MagicStone, SpecialDamageAvailable 
         return isAvailable;
     }
 
+    @Override
     public boolean isAvailable(ResultCategoryType type) {
         return isAvailable.test(type);
     }

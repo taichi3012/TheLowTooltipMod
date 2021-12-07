@@ -2,7 +2,7 @@ package com.github.taichi3012.thelowtooltipmod.damagefactor;
 
 import java.util.function.Predicate;
 
-public enum UniqueSpecialType implements SpecialDamageAvailable{
+public enum UniqueSpecialType implements SpecialAttackable {
     ZOMBIE_SPECIAL_DAMAGE("ゾンビ特攻", c -> c == ResultCategoryType.ZOMBIE_CATEGORY),
     SKELETON_SPECIAL_DAMAGE("スケルトン特攻", c -> c == ResultCategoryType.SKELETON_CATEGORY),
     SPIDER_SPECIAL_DAMAGE("クモ特攻", c -> c == ResultCategoryType.SPIDER_CATEGORY),

@@ -1,63 +1,64 @@
 package com.github.taichi3012.thelowtooltipmod.weapon;
 
-import com.github.taichi3012.thelowtooltipmod.api.TheLowAPI;
-import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.WeaponType;
 import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
+import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
-import static com.github.taichi3012.thelowtooltipmod.api.TheLowAPI.updatePlayerStatus;
-
-public class Weapon {
+public class WeaponBasic extends AbstractWeapon {
     protected final WeaponData weaponData;
 
-    public Weapon(WeaponData weaponData) {
+    public WeaponBasic(WeaponData weaponData) {
         this.weaponData = weaponData;
     }
-    public Weapon(ItemStack item) {
-        this(new WeaponData(item));
+
+    public WeaponBasic(ItemStack stack) {
+        this(new WeaponData(stack));
     }
 
-    public Map<ResultCategoryType, Double> getCategorizedDamage() {
+    @Override
+    public WeaponData getWeaponData() {
+        return weaponData;
+    }
+
+    public Map<ResultCategoryType, Double> generateCategorizedDamage(boolean isIncludeUniqueSpecial) {
         Map<ResultCategoryType, Double> result = new HashMap<>();
-        JobType job = TheLowAPI.getPlayerJobByUUID(Minecraft.getMinecraft().thePlayer.getUniqueID().toString());
         //武器の種類がnullの場合は"剣"として処理する
         WeaponType weaponType = Objects.nonNull(weaponData.getWeaponType()) ? weaponData.getWeaponType() : WeaponType.SWORD;
-        double parkGain = TheLowUtil.getParkGainByWeaponType(weaponType);
-        double jobGain = job.getGainByWeaponType(weaponType);
-        updatePlayerStatus(false);
+        double abilityMultiply = 1.0d + TheLowUtil.getAttackMultiplyAbilityGain(weaponType) / 100.0d;
+        double legendMultiply = Math.pow(1.06d, MagicStoneUtil.getLegendValue(weaponData));
 
         for (ResultCategoryType categoryType : ResultCategoryType.values()) {
             double resultDamage = weaponData.getDamage();
 
-            resultDamage += weaponData.getSpecialDamage(categoryType);
+            resultDamage += isIncludeUniqueSpecial ? weaponData.getSpecialDamage(categoryType) : 0.0d;
             resultDamage *= weaponData.getMSMultiply(categoryType);
-            resultDamage *= (100d + parkGain + jobGain) / 100d;
+            resultDamage *= abilityMultiply;
+            resultDamage *= legendMultiply;
 
             result.put(categoryType, resultDamage);
         }
         return result;
     }
 
-    public List<String> getContext() {
+    @Override
+    public List<String> generateResultContext() {
         List<String> result = new ArrayList<>();
-        Map<ResultCategoryType, Double> damages = DamageCalcUtil.removeAllRedundancy(getCategorizedDamage());
+        Map<ResultCategoryType, Double> damages = DamageCalcUtil.removeAllRedundancy(generateCategorizedDamage(true));
         Comparator<ResultCategoryType> comparator = Comparator.comparingDouble(damages::get);
 
+        result.add("§4[ダメージ]");
         damages.keySet().stream().sorted(comparator.reversed())
                 .forEach(category -> {
-                    double damage = damages.get(category);
-                    double normalDmg = DamageCalcUtil.getRoundDamage(damage);
-                    double criticalDmg = DamageCalcUtil.getCriticalDamage(damage);
+                    double normalDamage = damages.get(category);
 
                     result.add(StringUtils.repeat(' ', 2) + category.getDisplayColor() + category.getName() + ":");
-                    result.add(String.format(StringUtils.repeat(' ', 4) + "§6+%s§c§o(+%s)", normalDmg, criticalDmg));
+                    result.add(String.format(StringUtils.repeat(' ', 4) + "§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(normalDamage), DamageCalcUtil.roundCriticalDamage(normalDamage)));
                 });
 
         return result;

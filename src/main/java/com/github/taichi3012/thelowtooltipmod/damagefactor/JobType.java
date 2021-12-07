@@ -1,7 +1,5 @@
 package com.github.taichi3012.thelowtooltipmod.damagefactor;
 
-import javax.annotation.Nonnull;
-
 public enum JobType {
     NOVICE("ノービス", 0.0, 0.0, 0.0),
     SOLDIER("ソルジャー", 5.0, -2.0, -2.0),
@@ -49,7 +47,7 @@ public enum JobType {
         return magicGain;
     }
 
-    public double getGainByWeaponType(@Nonnull WeaponType type) {
+    public double getGainByWeaponType(WeaponType type) {
         switch (type) {
             case SWORD:
                 return getSwordGain();

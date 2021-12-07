@@ -15,8 +15,9 @@ public class TheLowAPI {
     private static LocalDateTime lastGetTime = null;
     private static final Map<String, JsonObject> statusResponse = new HashMap<>();
 
-    public static void updatePlayerStatus(Boolean isForce) {
-        if (Minecraft.getMinecraft().thePlayer == null) return;
+    public static void requestPlayerStatus(Boolean isForce) {
+        if (Minecraft.getMinecraft().thePlayer == null)
+            return;
         if (lastGetTime == null || lastGetTime.isBefore(LocalDateTime.now().minusMinutes(1)) || isForce) {
             lastGetTime = LocalDateTime.now();
             Minecraft.getMinecraft().thePlayer.sendChatMessage("/thelow_api player");
@@ -26,12 +27,14 @@ public class TheLowAPI {
     public static boolean processResponse(ClientChatReceivedEvent event) throws RuntimeException {
         String message = event.message.getUnformattedText();
 
-        if (!message.startsWith("$api") ) return false;
+        if (!message.startsWith("$api") )
+            return false;
 
         message = message.replace("$api", "");
         JsonObject jsonObj = new Gson().fromJson(message, JsonObject.class);
 
-        if (!Objects.equals(jsonObj.get("apiType").getAsString(), "player_status")) return true;
+        if (!Objects.equals(jsonObj.get("apiType").getAsString(), "player_status"))
+            return true;
 
         String uuid = jsonObj.get("response").getAsJsonObject().get("uuid").getAsString();
         statusResponse.put(uuid, jsonObj.get("response").getAsJsonObject());
@@ -40,7 +43,8 @@ public class TheLowAPI {
     }
 
     public static JobType getPlayerJobByUUID(String uuid) {
-        if (statusResponse.size() == 0 || !statusResponse.containsKey(uuid)) return JobType.UNKNOWN_JOB;
+        if (statusResponse.size() == 0 || !statusResponse.containsKey(uuid))
+            return JobType.UNKNOWN_JOB;
         return JobType.getJobByName(statusResponse.get(uuid).get("jobName").getAsString());
     }
 }
