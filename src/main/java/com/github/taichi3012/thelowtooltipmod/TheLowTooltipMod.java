@@ -87,20 +87,13 @@ public class TheLowTooltipMod {
 
         if (TheLowNBTUtil.hasDamage(event.itemStack)) {
             WeaponBasic weapon = null;
-            int cursor = event.showAdvancedItemTooltips ? event.toolTip.size() - 2 : event.toolTip.size();
             requestPlayerStatus(false);
 
-            for (String str : event.toolTip) {
-                if (str.contains("[SLOT]")) {
-                    cursor = event.toolTip.indexOf(str);
-                    break;
-                }
-            }
-
+            String skillSetId = TheLowNBTUtil.getSkillSetID(stack);
             if (TheLowUtil.isMagicMixtureWeapon(event.itemStack)) {
                 weapon = new WeaponMagicalMixture(stack);
-            } else if (TheLowNBTUtil.getSkillSetID(stack) != null) {
-                switch (TheLowNBTUtil.getSkillSetID(stack)) {
+            } else if (skillSetId != null) {
+                switch (skillSetId) {
                     case "36":
                         weapon = new WeaponGekokujo(stack);
                         break;
@@ -109,6 +102,23 @@ public class TheLowTooltipMod {
 
             if (weapon == null)
                 weapon = new WeaponBasic(stack);
+
+            //アイテムの名前と結果のみ表示する設定が有効なときはここで返す。
+            if (TheLowTooltipModConfig.isOnlyDisplayResultAndNameEnable()) {
+                String itemDisplayName = event.toolTip.get(0);
+                event.toolTip.clear();
+                event.toolTip.add(itemDisplayName);
+                event.toolTip.addAll(weapon.generateResultContext());
+                return;
+            }
+
+            int cursor = event.showAdvancedItemTooltips ? event.toolTip.size() - 2 : event.toolTip.size();
+            for (String str : event.toolTip) {
+                if (str.contains("[SLOT]")) {
+                    cursor = event.toolTip.indexOf(str);
+                    break;
+                }
+            }
 
             event.toolTip.addAll(cursor, weapon.generateResultContext());
             cursor += weapon.generateResultContext().size();
@@ -125,14 +135,6 @@ public class TheLowTooltipMod {
             if (skill != null && heldStack != null && TheLowNBTUtil.hasDamage(heldStack) && skill.isActive(new WeaponData(heldStack))) {
                 List<String> result = new ArrayList<>();
                 WeaponData weaponData = new WeaponData(heldStack);
-                int cursor = event.showAdvancedItemTooltips ? event.toolTip.size() - 2 : event.toolTip.size();
-
-                for (String str : event.toolTip) {
-                    if (str.contains("スキル発動中") || str.contains("クリックしてスキルを")) {
-                        cursor = event.toolTip.indexOf(str);
-                        break;
-                    }
-                }
 
                 List<String> resultContext = skill.getResultContext(weaponData);
                 if (TheLowTooltipModConfig.isSkillResultContextEnable() && resultContext != null)
@@ -145,11 +147,30 @@ public class TheLowTooltipMod {
                     result.addAll(coolTimeContext);
                 }
 
-                if (result.size() > 0) {
-                    event.toolTip.addAll(cursor, result);
-                    cursor += result.size();
-                    event.toolTip.add(cursor, "");
+                //結果がないときは返す。
+                if (result.size() == 0)
+                    return;
+
+                //アイテムの名前と結果のみ表示する設定が有効なときはここで返す。
+                if (TheLowTooltipModConfig.isOnlyDisplayResultAndNameEnable()) {
+                    String itemDisplayName = event.toolTip.get(0);
+                    event.toolTip.clear();
+                    event.toolTip.add(itemDisplayName);
+                    event.toolTip.addAll(result);
+                    return;
                 }
+
+                int cursor = event.showAdvancedItemTooltips ? event.toolTip.size() - 2 : event.toolTip.size();
+                for (String str : event.toolTip) {
+                    if (str.contains("スキル発動中") || str.contains("クリックしてスキルを")) {
+                        cursor = event.toolTip.indexOf(str);
+                        break;
+                    }
+                }
+
+                event.toolTip.addAll(cursor, result);
+                cursor += result.size();
+                event.toolTip.add(cursor, "");
             }
         }
     }

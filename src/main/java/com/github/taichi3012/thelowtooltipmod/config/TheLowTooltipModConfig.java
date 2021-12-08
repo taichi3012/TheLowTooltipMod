@@ -11,6 +11,7 @@ public class TheLowTooltipModConfig {
     private static boolean isTooltipEnable = true;
     private static boolean isSkillCoolTimeContextEnable = true;
     private static boolean isSkillResultContextEnable = true;
+    private static boolean isOnlyDisplayResultAndName = false;
     private static double overStrengthSwordValue = 0d;
     private static double overStrengthBowValue = 0d;
     private static double overStrengthMagicValue = 0d;
@@ -28,8 +29,9 @@ public class TheLowTooltipModConfig {
 
     public static void syncConfig() {
         isTooltipEnable = config.getBoolean("ツールチップ表示", GENERAL, true, "ツールチップでダメージなどの表記を行うかどうかの設定");
-        isSkillCoolTimeContextEnable = config.getBoolean("スキルクールタイム表示", GENERAL, true, "ツールチップでダメージの表記を行うかどうかの設定");
-        isSkillResultContextEnable = config.getBoolean("スキルダメージ表示", GENERAL, true, "ツールチップでダメージの表記を行うかどうかの設定");
+        isOnlyDisplayResultAndName = config.getBoolean("名前と結果のみ表示", GENERAL, false, "ツールチップでアイテムの名前と計算結果のみ表示するかどうかの設定");
+        isSkillCoolTimeContextEnable = config.getBoolean("スキルクールタイム表示", GENERAL, true, "ツールチップでスキルクールタイムの表記を行うかどうかの設定");
+        isSkillResultContextEnable = config.getBoolean("スキルダメージ表示", GENERAL, true, "ツールチップでスキルダメージの表記を行うかどうかの設定");
         overStrengthSwordValue = config.get(GENERAL, "剣攻撃力増加パークの値", 0.0d, "剣のダメージ計算時に使うOSの値", 0.0d, 200.0d).getDouble();
         overStrengthBowValue = config.get(GENERAL, "弓攻撃力増加パークの値", 0.0d, "弓のダメージ計算時に使うOSの値", 0.0d, 200.0d).getDouble();
         overStrengthMagicValue = config.get(GENERAL, "魔法攻撃力増加パークの値", 0.0d, "魔法のダメージ計算時に使うOSの値", 0.0d, 200.0d).getDouble();
@@ -65,6 +67,10 @@ public class TheLowTooltipModConfig {
 
     public static boolean isTooltipEnable() {
         return isTooltipEnable;
+    }
+
+    public static boolean isOnlyDisplayResultAndNameEnable() {
+        return isOnlyDisplayResultAndName;
     }
 
     public static boolean isSkillCoolTimeContextEnable() {
