@@ -41,7 +41,7 @@ public class Skill48 implements IWeaponSkillAble {
     @Override
     public List<String> getResultContext(WeaponData weaponData) {
         List<String> result = new ArrayList<>();
-        double damage = new WeaponBasic(weaponData).generateCategorizedDamage(false).get(ResultCategoryType.NO_SPECIAL_CATEGORY);
+        double damage = new WeaponBasic(weaponData).generateCategorizedDamage(false).get(ResultCategoryType.NO_SPECIAL_CATEGORY) * 3.0d;
         double passiveAbleDamage = damage * 1.2d;
 
         result.add("§4[ダメージ]");
