@@ -165,6 +165,17 @@ public class SkillManager {
                 false, 1.0d));
         register(new SkillBasic("wskill158", "百花繚乱", "40", 60.0d, 13.0d));
         register(new SkillBasic("wskill159", "錦上添花", "40", true, 2.0d));
+
+        register(new SkillHasExplain("wskill161", "冥雷", "46", 0.0d, 0.0d,
+                new String[]{"発動時", "通常"}, true, new double[]{9.0d, 0.1d}));
+        register(new SkillBasic("wskill165", "イモータルスフィア", "46", 70.0d, 6.0d, false, 3.0d));
+        register(new SkillBasic("wskill166", "アタナイトキューブ", "46", 50.0d, 10.0d));
+        register(new SkillBasic("wskill167", "咒力爆弾", "46", 1.0d, 1.0d, false, 1.05d));
+
+        register(new SkillBasic("wskill169", "獄陽炎", "47", 35.0d, 0.0d, false, 4.0d));
+        register(new SkillBasic("wskill170", "ブラックホール", "47", 25.0d, 0.0d));
+        register(new SkillHasExplain("wskill171", "グラビティエンド", "47", 110.0d, 15.0d,
+                new String[]{"範囲攻撃"}, false, new double[]{1.0d}));
     }
 
     public static void register(IWeaponSkillAble skill) {
