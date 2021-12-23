@@ -5,10 +5,7 @@ import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
 import com.github.taichi3012.thelowtooltipmod.gui.GuiListener;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowNBTUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
-import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
-import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-import com.github.taichi3012.thelowtooltipmod.weapon.WeaponGekokujo;
-import com.github.taichi3012.thelowtooltipmod.weapon.WeaponMagicalMixture;
+import com.github.taichi3012.thelowtooltipmod.weapon.*;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.SkillManager;
 import net.minecraft.client.Minecraft;
@@ -94,6 +91,9 @@ public class TheLowTooltipMod {
                 weapon = new WeaponMagicalMixture(stack);
             } else if (skillSetId != null) {
                 switch (skillSetId) {
+                    case "12":
+                        weapon = new WeaponPlaceLight(stack);
+                        break;
                     case "36":
                         weapon = new WeaponGekokujo(stack);
                         break;

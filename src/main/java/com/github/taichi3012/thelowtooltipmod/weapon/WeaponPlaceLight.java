@@ -10,12 +10,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-public class WeaponGekokujo extends WeaponBasic {
-    public WeaponGekokujo(WeaponData weaponData) {
+public class WeaponPlaceLight extends WeaponBasic{
+    public WeaponPlaceLight(WeaponData weaponData) {
         super(weaponData);
     }
 
-    public WeaponGekokujo(ItemStack stack) {
+    public WeaponPlaceLight(ItemStack stack) {
         super(stack);
     }
 
@@ -29,12 +29,11 @@ public class WeaponGekokujo extends WeaponBasic {
         damages.keySet().stream().sorted(comparator.reversed())
                 .forEach(category -> {
                     double normalDamage = damages.get(category);
-                    double BossDamage = normalDamage * 1.2d;
-                    double MobDamage = normalDamage * 0.7d;
+                    double passiveAbleDamage = normalDamage * 1.2d;
 
                     result.add(StringUtils.repeat(' ', 2) + category.getDisplayColor() + category.getName() + ":");
-                    result.add(String.format(StringUtils.repeat(' ', 4) + "§7Boss:§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(BossDamage), DamageCalcUtil.roundCriticalDamage(BossDamage)));
-                    result.add(String.format(StringUtils.repeat(' ', 4) + "§7Mob :§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(MobDamage), DamageCalcUtil.roundCriticalDamage(MobDamage)));
+                    result.add(String.format(StringUtils.repeat(' ', 4) + "§7パッシブ有効:§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(passiveAbleDamage), DamageCalcUtil.roundCriticalDamage(passiveAbleDamage)));
+                    result.add(String.format(StringUtils.repeat(' ', 4) + "§7通常:§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(normalDamage), DamageCalcUtil.roundCriticalDamage(normalDamage)));
                 });
 
         return result;
