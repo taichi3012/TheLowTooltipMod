@@ -155,9 +155,9 @@ public class SkillManager {
         register(new SkillBasic("wskill143", "集中", "36", 35.0d, 20.0d));
         register(new SkillBasic("wskill144", "天下無双", "36", 60.0d, 15.0d));
 
-        register(new SkillBasic("wskill149", "召喚術式 ~魔~", "37", 350.0d, 30.0d, false, 0.75));
-        register(new SkillBasic("wskill150", "召喚術式 ~弓~", "38", 350.0d, 30.0d));
-        register(new SkillBasic("wskill151", "召喚術式 ~剣~", "39", 350.0d, 30.0d, false, 0.8));
+        register(new SkillBasic("wskill149", "召喚術式 ~魔~", "37", 350.0d, 30.0d, false, 0.75d));
+        register(new SkillBasic("wskill150", "召喚術式 ~弓~", "38", 350.0d, 30.0d, false, 1.0d));
+        register(new SkillBasic("wskill151", "召喚術式 ~剣~", "39", 350.0d, 30.0d, false, 0.8d));
 
         register(new SkillBasic("wskill156", "激昂乱舞", "40", 20.0d, 20.0d));
         register(new SkillBasic("wskill157", "才色兼備", "40", 30.0d, 1.0d,
