@@ -162,7 +162,7 @@ public class SkillManager {
         register(new SkillBasic("wskill156", "激昂乱舞", "40", 20.0d, 20.0d));
         register(new SkillBasic("wskill157", "才色兼備", "40", 30.0d, 1.0d,
                 false, 1.0d));
-        register(new SkillBasic("wskill158", "百花繚乱", "40", 60.0d, 13.0d));
+        register(new SkillBasic("wskill158", "百花繚乱", "40", 120.0d, 11.0d));
         register(new SkillBasic("wskill159", "錦上添花", "40", true, 2.0d));
 
         register(new SkillHasExplain("wskill161", "冥雷", "46", 0.0d, 0.0d,
