@@ -56,13 +56,15 @@ public enum JobType {
             case MAGIC:
                 return getMagicGain();
             default:
-                return 0d;
+                return 0.0d;
         }
     }
 
     public static JobType getJobByName(String name) {
         for (JobType job : values()) {
-            if (job.getName().equals(name)) return job;
+            if (job.getName().equals(name)) {
+                return job;
+            }
         }
         return UNKNOWN_JOB;
     }

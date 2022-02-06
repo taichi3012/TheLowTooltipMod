@@ -7,6 +7,7 @@ import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -67,7 +68,7 @@ public class SkillBasic implements IWeaponSkillAble {
     }
 
     @Override
-    public List<String> getResultContext(WeaponData weaponData) {
+    public @NotNull List<String> getResultContext(WeaponData weaponData) {
         List<String> result = new ArrayList<>();
 
         if (this.multiply > 0) {
@@ -84,9 +85,6 @@ public class SkillBasic implements IWeaponSkillAble {
                         result.add(String.format(StringUtils.repeat(' ', 4) + "§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(normalDamage), DamageCalcUtil.roundCriticalDamage(normalDamage)));
                     });
         }
-
-        if (result.size() < 1)
-            return null;
 
         return result;
     }

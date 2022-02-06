@@ -4,7 +4,9 @@ import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
 import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Skill74 implements IWeaponSkillAble {
@@ -26,8 +28,10 @@ public class Skill74 implements IWeaponSkillAble {
 
     @Override
     public String getName(WeaponData weaponData) {
-        if (weaponData.getSkillSetId() == null)
+        if (weaponData.getSkillSetId() == null) {
             return "";
+        }
+
         switch (weaponData.getSkillSetId()) {
             case "19":
                 return "血の渇望";
@@ -44,7 +48,7 @@ public class Skill74 implements IWeaponSkillAble {
     }
 
     @Override
-    public List<String> getResultContext(WeaponData weaponData) {
-        return null;
+    public @NotNull List<String> getResultContext(WeaponData weaponData) {
+        return new ArrayList<>();
     }
 }

@@ -36,8 +36,9 @@ public class DamageCalcUtil {
 
     private static void removeRedundancy(Map<ResultCategoryType, Double> damages, SpecialAttackable eqFactor, ResultCategoryType eqCategory) {
         //比べる基準となるカテゴリーが存在しない場合は返す
-        if (!damages.containsKey(eqCategory))
+        if (!damages.containsKey(eqCategory)) {
             return;
+        }
 
         damages.keySet().removeIf(next -> !eqCategory.equals(next) && eqFactor.isAvailable(next) && Objects.equals(damages.get(eqCategory), damages.get(next)));
     }
@@ -47,6 +48,6 @@ public class DamageCalcUtil {
     }
 
     public static double roundCriticalDamage(double damage) {
-        return roundDamage(damage * 1.15);
+        return roundDamage(damage * 1.15d);
     }
 }

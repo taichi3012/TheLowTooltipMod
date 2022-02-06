@@ -4,6 +4,7 @@ import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 
 import java.time.LocalDateTime;
@@ -16,25 +17,31 @@ public class TheLowAPI {
     private static final Map<String, JsonObject> statusResponse = new HashMap<>();
 
     public static void requestPlayerStatus(Boolean isForce) {
-        if (Minecraft.getMinecraft().thePlayer == null)
+        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+
+        if (player == null) {
             return;
+        }
+
         if (lastGetTime == null || lastGetTime.isBefore(LocalDateTime.now().minusMinutes(1)) || isForce) {
             lastGetTime = LocalDateTime.now();
-            Minecraft.getMinecraft().thePlayer.sendChatMessage("/thelow_api player");
+            player.sendChatMessage("/thelow_api player");
         }
     }
 
     public static boolean processResponse(ClientChatReceivedEvent event) throws RuntimeException {
         String message = event.message.getUnformattedText();
 
-        if (!message.startsWith("$api") )
+        if (!message.startsWith("$api") ) {
             return false;
+        }
 
         message = message.replace("$api", "");
         JsonObject jsonObj = new Gson().fromJson(message, JsonObject.class);
 
-        if (!Objects.equals(jsonObj.get("apiType").getAsString(), "player_status"))
+        if (!Objects.equals(jsonObj.get("apiType").getAsString(), "player_status")) {
             return true;
+        }
 
         String uuid = jsonObj.get("response").getAsJsonObject().get("uuid").getAsString();
         statusResponse.put(uuid, jsonObj.get("response").getAsJsonObject());
@@ -43,8 +50,10 @@ public class TheLowAPI {
     }
 
     public static JobType getPlayerJobByUUID(String uuid) {
-        if (statusResponse.size() == 0 || !statusResponse.containsKey(uuid))
+        if (statusResponse.isEmpty() || !statusResponse.containsKey(uuid)) {
             return JobType.UNKNOWN_JOB;
+        }
+
         return JobType.getJobByName(statusResponse.get(uuid).get("jobName").getAsString());
     }
 }

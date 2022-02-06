@@ -8,6 +8,7 @@ import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -32,8 +33,10 @@ public class Skill3 implements IWeaponSkillAble {
 
     @Override
     public String getName(WeaponData weaponData) {
-        if (weaponData.getSkillSetId() == null)
+        if (weaponData.getSkillSetId() == null) {
             return "";
+        }
+
         switch (weaponData.getSkillSetId()) {
             case "1":
                 return "パリィ";
@@ -50,7 +53,7 @@ public class Skill3 implements IWeaponSkillAble {
     }
 
     @Override
-    public List<String> getResultContext(WeaponData weaponData) {
+    public @NotNull List<String> getResultContext(WeaponData weaponData) {
         List<String> result = new ArrayList<>();
 
         Map<ResultCategoryType, Double> damages =

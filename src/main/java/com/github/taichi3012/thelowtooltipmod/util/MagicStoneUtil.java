@@ -27,14 +27,14 @@ public class MagicStoneUtil {
             }
         }
 
-        if (resultMS == null)
+        if (resultMS == null) {
             return new MagicStoneData(UNKNOWN_MAGIC_STONE, UNKNOWN_LEVEL);
+        }
+
         return new MagicStoneData(resultMS, getLevelByID(value.replace(resultMS.getId(), "")));
     }
 
     public static double getCasterMultiply(WeaponData weaponData) {
-        if (weaponData.getMagicStoneList() == null)
-            return 1.0d;
         return weaponData.getMagicStoneList().stream()
                 .filter(magicStoneData -> magicStoneData.getMagicStone().equals(PassiveMagicStoneType.CASTER_MAGIC_STONE))
                 .mapToDouble(magicStoneData -> magicStoneData.getLevel().getCoolTimeMultiply())
@@ -42,8 +42,6 @@ public class MagicStoneUtil {
     }
 
     public static int getLegendValue(WeaponData weaponData) {
-        if (weaponData.getMagicStoneList() == null)
-            return 0;
         return weaponData.getMagicStoneList().stream()
                 .filter(magicStoneData -> magicStoneData.getLevel().equals(LEGEND))
                 .mapToInt(lv -> 1)

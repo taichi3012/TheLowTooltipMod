@@ -12,26 +12,31 @@ public class ItemNBTUtil {
     public static List<String> getItemLore(ItemStack stack) {
         List<String> result = new ArrayList<>();
 
-        if (stack == null)
-            return null;
+        if (stack == null) {
+            return result;
+        }
 
         NBTTagCompound tags = stack.getTagCompound();
-        if (tags == null)
-            return null;
+
+        if (tags == null) {
+            return result;
+        }
 
         NBTTagCompound display = tags.getCompoundTag("display");
-        if (display == null)
-            return null;
+
+        if (display == null) {
+            return result;
+        }
 
         NBTTagList lore = display.getTagList("Lore", Constants.NBT.TAG_STRING);
-        if (lore == null)
-            return null;
 
-        for (int i = 0; i < lore.tagCount(); i++ )
+        if (lore == null) {
+            return result;
+        }
+
+        for (int i = 0; i < lore.tagCount(); i++) {
             result.add(lore.getStringTagAt(i));
-
-        if (result.size() == 0)
-            return null;
+        }
 
         return result;
     }

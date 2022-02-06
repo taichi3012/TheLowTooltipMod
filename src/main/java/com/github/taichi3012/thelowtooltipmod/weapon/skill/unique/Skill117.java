@@ -8,6 +8,7 @@ import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -41,7 +42,7 @@ public class Skill117 implements IWeaponSkillAble {
     }
 
     @Override
-    public List<String> getResultContext(WeaponData weaponData) {
+    public @NotNull List<String> getResultContext(WeaponData weaponData) {
         List<String> result = new ArrayList<>();
         Map<ResultCategoryType, Double> damages =
                 DamageCalcUtil.removeAllRedundancy(new WeaponBasic(weaponData).generateCategorizedDamage(false));
@@ -53,6 +54,7 @@ public class Skill117 implements IWeaponSkillAble {
                     double normalDamage = damages.get(category) * 12.5d;
 
                     result.add(StringUtils.repeat(' ', 2) + category.getDisplayColor() + category.getName() + ":");
+
                     if ("30".equals(weaponData.getSkillSetId())) {
                         double shadowPowerAbleDamage = normalDamage * 1.5d;
                         result.add(String.format(StringUtils.repeat(' ', 4) + "§7通常:§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(normalDamage), DamageCalcUtil.roundCriticalDamage(normalDamage)));

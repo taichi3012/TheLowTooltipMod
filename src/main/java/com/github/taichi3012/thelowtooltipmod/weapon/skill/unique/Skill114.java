@@ -11,6 +11,7 @@ import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -44,7 +45,7 @@ public class Skill114 implements IWeaponSkillAble {
     }
 
     @Override
-    public List<String> getResultContext(WeaponData weaponData) {
+    public @NotNull List<String> getResultContext(WeaponData weaponData) {
         List<String> result = new ArrayList<>();
         Map<ResultCategoryType, Double> damages =
                 DamageCalcUtil.removeAllRedundancy(new WeaponBasic(weaponData).generateCategorizedDamage(true));
@@ -65,8 +66,10 @@ public class Skill114 implements IWeaponSkillAble {
                     });
         }
 
-        if (result.size() > 0)
+        if (!result.isEmpty()) {
             result.add("");
+        }
+
         result.add(String.format("§c[現在の倍率]§e -> ×%1$s倍", JavaUtil.digitRound((abilityGain + 120.0d) / (abilityGain + 100), 2.0d)));
 
         return result;

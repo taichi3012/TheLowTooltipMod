@@ -19,8 +19,9 @@ public class InventoryParkSelector extends InventoryBasic {
         if (stack != null) {
             if (stack.getDisplayName().contains("Over Strength of ")) {
                 for (WeaponType type : WeaponType.values()) {
-                    if (!stack.getDisplayName().contains(type.name()))
+                    if (!stack.getDisplayName().contains(type.name())) {
                         continue;
+                    }
 
                     double gain = TheLowUtil.generateOSParkGain(stack);
                     if (gain != 0d && gain != TheLowTooltipModConfig.getOSParkGainByWeaponType(type)) {

@@ -37,8 +37,9 @@ public class TheLowTooltipModConfig {
         overStrengthMagicValue = config.get(GENERAL, "魔法攻撃力増加パークの値", 0.0d, "魔法のダメージ計算時に使うOSの値", 0.0d, 200.0d).getDouble();
         quickTalkSpellStage = config.get(GENERAL, "スキルCT減少パークの値", 0, "CTの計算に使うCT減少パークの値", 0, 10).getInt();
 
-        if (config.hasChanged())
+        if (config.hasChanged()) {
             config.save();
+        }
     }
 
     public static void setOverStrengthValue(WeaponType type, double value) {

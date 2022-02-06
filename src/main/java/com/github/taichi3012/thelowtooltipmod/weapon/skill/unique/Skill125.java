@@ -9,6 +9,7 @@ import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
 import net.minecraft.client.Minecraft;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,16 +42,18 @@ public class Skill125 implements IWeaponSkillAble {
     }
 
     @Override
-    public List<String> getResultContext(WeaponData weaponData) {
-        return null;
+    public @NotNull List<String> getResultContext(WeaponData weaponData) {
+        return new ArrayList<>();
     }
 
     @Override
-    public List<String> getCoolTimeContext(WeaponData weaponData) {
+    public @NotNull List<String> getCoolTimeContext(WeaponData weaponData) {
         List<String> result = new ArrayList<>();
+        double CTParkMul = TheLowTooltipModConfig.getQuickSpellTalkMultiply();
+        double casterMul = MagicStoneUtil.getCasterMultiply(weaponData);
 
-        double normalCoolTime = 220.0d * TheLowTooltipModConfig.getQuickSpellTalkMultiply() * MagicStoneUtil.getCasterMultiply(weaponData) + 30.0d;
-        double priestCoolTime = 132.0d * TheLowTooltipModConfig.getQuickSpellTalkMultiply() * MagicStoneUtil.getCasterMultiply(weaponData) + 30.0d;
+        double normalCoolTime = 220.0d * CTParkMul * casterMul + 30.0d;
+        double priestCoolTime = 132.0d * CTParkMul * casterMul + 30.0d;
 
         result.add("§3[クールタイム]");
         result.add(String.format(StringUtils.repeat(' ', 2) + "§7通常:§e%1$s秒", JavaUtil.digitRound(normalCoolTime, 2.0d)));

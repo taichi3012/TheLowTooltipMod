@@ -8,6 +8,7 @@ import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class Skill48 implements IWeaponSkillAble {
     }
 
     @Override
-    public List<String> getResultContext(WeaponData weaponData) {
+    public @NotNull List<String> getResultContext(WeaponData weaponData) {
         List<String> result = new ArrayList<>();
         double damage = new WeaponBasic(weaponData).generateCategorizedDamage(false).get(ResultCategoryType.NO_SPECIAL_CATEGORY) * 3.0d;
         double passiveAbleDamage = damage * 1.2d;

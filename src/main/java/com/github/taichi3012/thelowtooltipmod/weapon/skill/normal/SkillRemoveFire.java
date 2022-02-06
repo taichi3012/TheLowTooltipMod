@@ -5,7 +5,9 @@ import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowNBTUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,12 +31,12 @@ public class SkillRemoveFire implements IWeaponSkillAble {
     @Override
     public boolean isActive(WeaponData weaponData) {
         String[] skillList = TheLowNBTUtil.getNormalSkillList(weaponData.getItemStack());
-        return skillList != null && Arrays.asList(skillList).contains(getId());
+        return Arrays.asList(skillList).contains(getId());
     }
 
     @Override
-    public List<String> getResultContext(WeaponData weaponData) {
-        return null;
+    public @NotNull List<String> getResultContext(WeaponData weaponData) {
+        return new ArrayList<>();
     }
 
     @Override

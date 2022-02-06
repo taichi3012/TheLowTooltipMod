@@ -8,11 +8,9 @@ import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SkillHasExplain implements IWeaponSkillAble {
 
@@ -27,8 +25,9 @@ public class SkillHasExplain implements IWeaponSkillAble {
     public final double[] multiply;
 
     public SkillHasExplain(String id, String name, String skillSetId, double defaultCoolTime, double activeTime, String[] explain, boolean[] isIncludeUniqueSpecial, double[] multiply) {
-        if (explain.length != isIncludeUniqueSpecial.length || isIncludeUniqueSpecial.length != multiply.length)
+        if (explain.length != isIncludeUniqueSpecial.length || isIncludeUniqueSpecial.length != multiply.length) {
             throw new IllegalArgumentException();
+        }
 
         this.id = id;
         this.name = name;
@@ -76,36 +75,46 @@ public class SkillHasExplain implements IWeaponSkillAble {
     }
 
     @Override
-    public List<String> getResultContext(WeaponData weaponData) {
+    public @NotNull List<String> getResultContext(WeaponData weaponData) {
         List<String> result = new ArrayList<>();
+        WeaponBasic weapon = new WeaponBasic(weaponData);
 
         result.add("§4[ダメージ]");
 
-        WeaponBasic weapon = new WeaponBasic(weaponData);
         List<Map<ResultCategoryType, Double>> skillDamages = new ArrayList<>();
         for (int i = 0; i < this.explainValue; i++) {
+            Map<ResultCategoryType, Double> explainDamages = new HashMap<>();
+            Map<ResultCategoryType, Double> WPDamages = weapon.generateCategorizedDamage(this.isIncludeUniqueSpecial[i]);
+
             int finalI = i;
-            Map<ResultCategoryType, Double> damage = weapon.generateCategorizedDamage(this.isIncludeUniqueSpecial[i]);
-            damage.keySet().forEach(category -> damage.put(category, damage.get(category) * this.multiply[finalI]));
-            DamageCalcUtil.removeAllRedundancy(damage);
-            skillDamages.add(damage);
+            WPDamages.keySet()
+                    .forEach(
+                            category -> explainDamages.put(category, WPDamages.get(category) * this.multiply[finalI])
+                    );
+
+            DamageCalcUtil.removeAllRedundancy(explainDamages);
+            skillDamages.add(explainDamages);
         }
 
-        Map<ResultCategoryType, Double> defaultDamage =
+        Map<ResultCategoryType, Double> defaultDamages =
                 DamageCalcUtil.removeAllRedundancy(weapon.generateCategorizedDamage(true));
-        defaultDamage.keySet().stream()
-                .sorted(Comparator.comparingDouble(defaultDamage::get).reversed())
+
+        defaultDamages.keySet().stream()
+                .sorted(Comparator.comparingDouble(defaultDamages::get).reversed())
                 .forEach(category -> {
                     List<String> categoryResult = new ArrayList<>();
                     boolean hasResult = false;
 
                     for (int i = 0; i < this.explainValue; i++) {
-                        if (skillDamages.get(i).get(category) == null)
+                        if (skillDamages.get(i).get(category) == null) {
                             continue;
+                        }
+
                         hasResult = true;
                         double normalDamage = skillDamages.get(i).get(category);
                         categoryResult.add(String.format(StringUtils.repeat(' ', 4) + "§7%1$s:§6+%2$s§c§o(+%3$s)", this.explain[i], DamageCalcUtil.roundDamage(normalDamage), DamageCalcUtil.roundCriticalDamage(normalDamage)));
                     }
+
                     if (hasResult) {
                         result.add(StringUtils.repeat(' ', 2) + category.getDisplayColor() + category.getName() + ":");
                         result.addAll(categoryResult);

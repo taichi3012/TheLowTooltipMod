@@ -23,7 +23,10 @@ public class WeaponData {
     private final List<MagicStoneData> magicStone;
 
     public WeaponData(ItemStack stack) {
-        if (!TheLowNBTUtil.hasDamage(stack)) throw new IllegalArgumentException("指定されたアイテムには攻撃力がセットされていません。");
+        if (!TheLowNBTUtil.hasDamage(stack)) {
+            throw new IllegalArgumentException("指定されたアイテムには攻撃力がセットされていません。");
+        }
+
         this.itemStack = stack;
         this.theLowId = TheLowNBTUtil.getTheLowID(stack);
         this.skillSetId = TheLowNBTUtil.getSkillSetID(stack);
@@ -62,16 +65,12 @@ public class WeaponData {
     }
 
     public double getSpecialDamage(ResultCategoryType categoryType) {
-        if (specialDamage == null)
-            return 0.0d;
         return specialDamage.keySet().stream()
                 .filter(type -> type.isAvailable(categoryType))
                 .mapToDouble(type -> damage * specialDamage.get(type)).sum();
     }
 
     public double getMSMultiply(ResultCategoryType categoryType) {
-        if (magicStone == null)
-            return 1.0d;
         OptionalDouble op = magicStone.stream()
                 .filter(MagicStoneData::isSpecialType)
                 .filter(data -> ((SpecialMagicStoneType) data.getMagicStone()).isAvailable(categoryType))

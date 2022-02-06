@@ -52,21 +52,24 @@ public class TheLowTooltipMod {
     @SubscribeEvent(receiveCanceled = true)
     public void onClientChatReceived(ClientChatReceivedEvent event) {
         try {
-            if (TheLowAPI.processResponse(event))
+            if (TheLowAPI.processResponse(event)) {
                 event.setCanceled(true);
+            }
         } catch (RuntimeException e) {
             logger.warn("APIの解析に失敗しました。");
             e.printStackTrace();
         }
 
-        if (event.message.getUnformattedText().matches("職業「.*」を選択しました。"))
+        if (event.message.getUnformattedText().matches("職業「.*」を選択しました。")) {
             TheLowAPI.requestPlayerStatus(true);
+        }
     }
 
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.modID.equals(TheLowTooltipMod.MOD_ID))
+        if (event.modID.equals(TheLowTooltipMod.MOD_ID)) {
             TheLowTooltipModConfig.syncConfig();
+        }
     }
 
     @SubscribeEvent
@@ -79,8 +82,9 @@ public class TheLowTooltipMod {
     private void addResult(ItemTooltipEvent event) {
         ItemStack stack = event.itemStack;
 
-        if (stack.getTagCompound() == null)
+        if (stack.getTagCompound() == null) {
             return;
+        }
 
         if (TheLowNBTUtil.hasDamage(event.itemStack)) {
             WeaponBasic weapon = null;
@@ -100,8 +104,9 @@ public class TheLowTooltipMod {
                 }
             }
 
-            if (weapon == null)
+            if (weapon == null) {
                 weapon = new WeaponBasic(stack);
+            }
 
             //アイテムの名前と結果のみ表示する設定が有効なときはここで返す。
             if (TheLowTooltipModConfig.isOnlyDisplayResultAndNameEnable()) {
@@ -137,19 +142,22 @@ public class TheLowTooltipMod {
                 WeaponData weaponData = new WeaponData(heldStack);
 
                 List<String> resultContext = skill.getResultContext(weaponData);
-                if (TheLowTooltipModConfig.isSkillResultContextEnable() && resultContext != null)
+                if (TheLowTooltipModConfig.isSkillResultContextEnable() && !resultContext.isEmpty()) {
                     result.addAll(skill.getResultContext(weaponData));
+                }
 
                 List<String> coolTimeContext = skill.getCoolTimeContext(weaponData);
-                if (TheLowTooltipModConfig.isSkillCoolTimeContextEnable() && coolTimeContext != null) {
-                    if (result.size() > 0)
+                if (TheLowTooltipModConfig.isSkillCoolTimeContextEnable() && !coolTimeContext.isEmpty()) {
+                    if (!result.isEmpty()) {
                         result.add("");
+                    }
                     result.addAll(coolTimeContext);
                 }
 
                 //結果がないときは返す。
-                if (result.size() == 0)
+                if (result.isEmpty()) {
                     return;
+                }
 
                 //アイテムの名前と結果のみ表示する設定が有効なときはここで返す。
                 if (TheLowTooltipModConfig.isOnlyDisplayResultAndNameEnable()) {

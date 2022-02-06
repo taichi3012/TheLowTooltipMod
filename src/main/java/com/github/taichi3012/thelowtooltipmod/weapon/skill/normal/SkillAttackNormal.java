@@ -10,6 +10,7 @@ import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -45,11 +46,11 @@ public class SkillAttackNormal implements IWeaponSkillAble {
     @Override
     public boolean isActive(WeaponData weaponData) {
         String[] skillList = TheLowNBTUtil.getNormalSkillList(weaponData.getItemStack());
-        return skillList != null && Arrays.asList(skillList).contains(getId());
+        return Arrays.asList(skillList).contains(getId());
     }
 
     @Override
-    public List<String> getResultContext(WeaponData weaponData) {
+    public @NotNull List<String> getResultContext(WeaponData weaponData) {
         List<String> result = new ArrayList<>();
         Map<ResultCategoryType, Double> damages =
                 DamageCalcUtil.removeAllRedundancy(new WeaponBasic(weaponData).generateCategorizedDamage(false));
