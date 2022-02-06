@@ -79,7 +79,8 @@ public class TheLowNBTUtil {
         List<MagicStoneData> result = new ArrayList<>();
         String[] msArray = getMagicStoneString(stack);
 
-        Arrays.asList(msArray).forEach(str -> result.add(MagicStoneUtil.getDataByNBTValue(str)));
+        Arrays.asList(msArray)
+                .forEach(str -> result.add(MagicStoneUtil.getDataByNBTValue(str)));
         return result;
     }
 
