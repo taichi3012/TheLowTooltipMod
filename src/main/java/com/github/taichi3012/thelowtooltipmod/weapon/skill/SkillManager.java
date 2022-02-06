@@ -115,7 +115,8 @@ public class SkillManager {
         register(new SkillBasic("wskill106", "アイスヒール", "27", 25.0d, 0.0d));
         register(new SkillBasic("wskill107", "アイススロウ", "27", 30.0d, 5.0d, false, 5.0d));
 
-        register(new SkillHasExplain("wskill109", "カオスブリザード", "28", 120.0d, 5.0d, "全弾ヒット", true, 7.0d));
+        register(new SkillHasExplain("wskill109", "カオスブリザード", "28", 120.0d, 5.0d,
+                new String[]{"全弾ヒット", "1発あたり"}, false, new double[]{(1.1d * 7.0d), 1.1d}));
         register(new SkillBasic("wskill110", "アイススタンプ", "28", 45.0d, 0.0d));
         register(new SkillBasic("wskill111", "雪柱", "28", 50.0d, 0.0d, false, 4.0d));
 
@@ -173,8 +174,7 @@ public class SkillManager {
 
         register(new SkillBasic("wskill169", "獄陽炎", "47", 35.0d, 0.0d, false, 4.0d));
         register(new SkillBasic("wskill170", "ブラックホール", "47", 25.0d, 0.0d));
-        register(new SkillHasExplain("wskill171", "グラビティエンド", "47", 110.0d, 15.0d,
-                new String[]{"範囲攻撃"}, false, new double[]{1.0d}));
+        register(new SkillHasExplain("wskill171", "グラビティエンド", "47", 110.0d, 15.0d, "範囲攻撃", false, 1.0d));
 
         register(new SkillBasic("wskill172", "パニッシュメント", "48", 30.0d, 0.0d, false, 2.0d));
         register(new SkillBasic("wskill173", "士気高揚", "48", 40.0d, 30.0d));
