@@ -2,7 +2,7 @@ package com.github.taichi3012.thelowtooltipmod;
 
 import com.github.taichi3012.thelowtooltipmod.api.TheLowAPI;
 import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
-import com.github.taichi3012.thelowtooltipmod.gui.GuiListener;
+import com.github.taichi3012.thelowtooltipmod.listener.GuiParkSelectorListener;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowNBTUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.*;
@@ -44,7 +44,7 @@ public class TheLowTooltipMod {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new GuiListener());
+        MinecraftForge.EVENT_BUS.register(new GuiParkSelectorListener());
 
         SkillManager.registerAll();
     }

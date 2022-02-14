@@ -1,5 +1,6 @@
-package com.github.taichi3012.thelowtooltipmod.gui;
+package com.github.taichi3012.thelowtooltipmod.listener;
 
+import com.github.taichi3012.thelowtooltipmod.gui.InventoryParkSelector;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.ContainerChest;
@@ -7,9 +8,13 @@ import net.minecraft.inventory.InventoryBasic;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class GuiListener {
+public class GuiParkSelectorListener {
+
+    /**
+     * 開いたGuiがパーク選択画面だった場合にInventoryを入れ替える。
+     */
     @SubscribeEvent
-    public void swapGuiParkSelector(GuiOpenEvent event) {
+    public void onOpenGui(GuiOpenEvent event) {
         if (!(event.gui instanceof GuiChest)) {
             return;
         }

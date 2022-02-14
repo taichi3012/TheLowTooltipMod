@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 
 public class InventoryParkSelector extends InventoryBasic {
-    protected InventoryParkSelector(InventoryBasic inventoryBasic) {
+    public InventoryParkSelector(InventoryBasic inventoryBasic) {
         super(inventoryBasic.getDisplayName().getUnformattedText(), inventoryBasic.hasCustomName(), inventoryBasic.getSizeInventory());
     }
 
