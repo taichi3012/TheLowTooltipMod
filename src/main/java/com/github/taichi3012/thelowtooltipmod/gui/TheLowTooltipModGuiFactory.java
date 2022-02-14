@@ -38,7 +38,7 @@ public class TheLowTooltipModGuiFactory implements IModGuiFactory {
         public TheLowTooltipModConfigGui(GuiScreen parent) {
             super(
                     parent,
-                    (new ConfigElement(TheLowTooltipModConfig.getConfig().getCategory(TheLowTooltipModConfig.GENERAL))).getChildElements(),
+                    (new ConfigElement(TheLowTooltipModConfig.getConfig().getCategory(TheLowTooltipModConfig.GENERAL_CATEGORY))).getChildElements(),
                     TheLowTooltipMod.MOD_ID,
                     false,
                     false,

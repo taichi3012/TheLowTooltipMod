@@ -6,12 +6,17 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class TheLowTooltipModConfig {
-    public static final String GENERAL = "General";
+    public static final String GENERAL_CATEGORY = "General";
+    public static final String TOOLTIP_CATEGORY = GENERAL_CATEGORY + ".Tooltip";
+    public static final String PARK_CATEGORY = GENERAL_CATEGORY + ".Park";
+
     private static Configuration config;
+
     private static boolean isTooltipEnable = true;
     private static boolean isSkillCoolTimeContextEnable = true;
     private static boolean isSkillResultContextEnable = true;
     private static boolean isOnlyDisplayResultAndName = false;
+
     private static double overStrengthSwordValue = 0d;
     private static double overStrengthBowValue = 0d;
     private static double overStrengthMagicValue = 0d;
@@ -24,18 +29,34 @@ public class TheLowTooltipModConfig {
     }
 
     private static void initConfig() {
-        config.addCustomCategoryComment(GENERAL, "TheLowTooltipModの設定");
+        if (config == null) {
+            return;
+        }
+
+        config.setCategoryLanguageKey(GENERAL_CATEGORY, "config.thelowtooltipmod.category.general")
+                .setCategoryComment(GENERAL_CATEGORY, TheLowTooltipMod.MOD_NAME + "の設定")
+                .setCategoryLanguageKey(TOOLTIP_CATEGORY, "config.thelowtooltipmod.category.general.tooltip")
+                .setCategoryComment(TOOLTIP_CATEGORY, "ツールチップ表示の設定")
+                .setCategoryLanguageKey(PARK_CATEGORY, "config.thelowtooltipmod.category.general.park")
+                .setCategoryComment(PARK_CATEGORY, "計算に使用するパークの値の設定");
     }
 
     public static void syncConfig() {
-        isTooltipEnable = config.getBoolean("ツールチップ表示", GENERAL, true, "ツールチップでダメージなどの表記を行うかどうかの設定");
-        isOnlyDisplayResultAndName = config.getBoolean("名前と結果のみ表示", GENERAL, false, "ツールチップでアイテムの名前と計算結果のみ表示するかどうかの設定");
-        isSkillCoolTimeContextEnable = config.getBoolean("スキルクールタイム表示", GENERAL, true, "ツールチップでスキルクールタイムの表記を行うかどうかの設定");
-        isSkillResultContextEnable = config.getBoolean("スキルダメージ表示", GENERAL, true, "ツールチップでスキルダメージの表記を行うかどうかの設定");
-        overStrengthSwordValue = config.get(GENERAL, "剣攻撃力増加パークの値", 0.0d, "剣のダメージ計算時に使うOSの値", 0.0d, 200.0d).getDouble();
-        overStrengthBowValue = config.get(GENERAL, "弓攻撃力増加パークの値", 0.0d, "弓のダメージ計算時に使うOSの値", 0.0d, 200.0d).getDouble();
-        overStrengthMagicValue = config.get(GENERAL, "魔法攻撃力増加パークの値", 0.0d, "魔法のダメージ計算時に使うOSの値", 0.0d, 200.0d).getDouble();
-        quickTalkSpellStage = config.get(GENERAL, "スキルCT減少パークの値", 0, "CTの計算に使うCT減少パークの値", 0, 10).getInt();
+        isTooltipEnable = config.getBoolean("enabletooltipdisplay", TOOLTIP_CATEGORY, true, "ツールチップでダメージなどの表記を行うかどうかの設定", "config.thelowtooltipmod.prop.tooltip.enabletooltipdisplay");
+        isOnlyDisplayResultAndName = config.getBoolean("onlydisplayresultandname", TOOLTIP_CATEGORY, false, "ツールチップでアイテムの名前と計算結果のみ表示するかどうかの設定", "config.thelowtooltipmod.prop.tooltip.onlydisplayresultandname");
+        isSkillResultContextEnable = config.getBoolean("enableskillresultcontext", TOOLTIP_CATEGORY, true, "ツールチップでスキルダメージの表記を行うかどうかの設定", "config.thelowtooltipmod.prop.tooltip.enableskillresultcontext");
+        isSkillCoolTimeContextEnable = config.getBoolean("enableskillcooltimecontext", TOOLTIP_CATEGORY, true, "ツールチップでスキルクールタイムの表記を行うかどうかの設定", "config.thelowtooltipmod.prop.tooltip.enableskillcooltimecontext");
+
+        overStrengthSwordValue = config.get(PARK_CATEGORY, "overstrengthsword", 0.0d, "剣のダメージ計算時に使うOSの値", 0.0d, 200.0d)
+                .setLanguageKey("config.thelowtooltipmod.prop.park.overstrengthsword")
+                .getDouble();
+        overStrengthBowValue = config.get(PARK_CATEGORY, "overstrengthbow", 0.0d, "弓のダメージ計算時に使うOSの値", 0.0d, 200.0d)
+                .setLanguageKey("config.thelowtooltipmod.prop.park.overstrengthbow")
+                .getDouble();
+        overStrengthMagicValue = config.get(PARK_CATEGORY, "overstrengthmagic", 0.0d, "魔法のダメージ計算時に使うOSの値", 0.0d, 200.0d)
+                .setLanguageKey("config.thelowtooltipmod.prop.park.overstrengthmagic")
+                .getDouble();
+        quickTalkSpellStage = config.getInt("quicktalkspell", PARK_CATEGORY, 0, 0, 10, "CTの計算に使うCT減少パークの値", "config.thelowtooltipmod.prop.park.quicktalkspell");
 
         if (config.hasChanged()) {
             config.save();
@@ -45,20 +66,20 @@ public class TheLowTooltipModConfig {
     public static void setOverStrengthValue(WeaponType type, double value) {
         switch (type) {
             case SWORD:
-                config.get(GENERAL, "剣攻撃力増加パークの値", 0.0d, "剣のダメージ計算時に使うOSの値", 0.0d, 200.0d).set(value);
+                config.get(PARK_CATEGORY, "overstrengthsword", 0.0d, "剣のダメージ計算時に使うOSの値", 0.0d, 200.0d).set(value);
                 break;
             case BOW:
-                config.get(GENERAL, "弓攻撃力増加パークの値", 0.0d, "弓のダメージ計算時に使うOSの値", 0.0d, 200.0d).set(value);
+                config.get(PARK_CATEGORY, "overstrengthbow", 0.0d, "弓のダメージ計算時に使うOSの値", 0.0d, 200.0d).set(value);
                 break;
             case MAGIC:
-                config.get(GENERAL, "魔法攻撃力増加パークの値", 0.0d, "魔法のダメージ計算時に使うOSの値", 0.0d, 200.0d).set(value);
+                config.get(PARK_CATEGORY, "overstrengthmagic", 0.0d, "魔法のダメージ計算時に使うOSの値", 0.0d, 200.0d).set(value);
                 break;
         }
         syncConfig();
     }
 
     public static void setQuickTalkSpellStage(int stage) {
-        config.get(GENERAL, "スキルCT減少パークの値", 0, "CTの計算に使うCT減少パークの値", 0, 10).set(stage);
+        config.get(PARK_CATEGORY, "quicktalkspell", 0, "CTの計算に使うCT減少パークの値", 0, 10).set(stage);
         syncConfig();
     }
 
