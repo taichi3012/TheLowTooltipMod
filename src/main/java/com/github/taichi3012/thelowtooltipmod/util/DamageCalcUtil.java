@@ -4,6 +4,8 @@ import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.SpecialAttackable;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.UniqueSpecialType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.SpecialMagicStoneType;
+import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
+import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -62,5 +64,17 @@ public class DamageCalcUtil {
 
     public static double roundCriticalDamage(double damage) {
         return roundDamage(damage * 1.15d);
+    }
+
+    public static ResultCategoryType getSpecifiedRankResultType(WeaponData weaponData, int rank) {
+        Map<ResultCategoryType, Double> damages = DamageCalcUtil.removeAllRedundancy((new WeaponBasic(weaponData)).generateCategorizedDamage(true));
+        Comparator<ResultCategoryType> comparator = Comparator.comparingDouble(damages::get);
+        List<ResultCategoryType> rankedResultTypeList = damages.keySet().stream().sorted(comparator.reversed()).collect(Collectors.toList());
+
+        if (rank < 1 || rankedResultTypeList.size() < rank) {
+            return null;
+        }
+
+        return rankedResultTypeList.get(rank - 1);
     }
 }

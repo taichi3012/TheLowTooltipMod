@@ -9,6 +9,7 @@ public class TheLowTooltipModConfig {
     public static final String GENERAL_CATEGORY = "General";
     public static final String TOOLTIP_CATEGORY = GENERAL_CATEGORY + ".Tooltip";
     public static final String PARK_CATEGORY = GENERAL_CATEGORY + ".Park";
+    public static final String CALC_URL_CATEGORY = GENERAL_CATEGORY + ".CalcURL";
 
     private static Configuration config;
 
@@ -21,6 +22,10 @@ public class TheLowTooltipModConfig {
     private static double overStrengthBowValue = 0d;
     private static double overStrengthMagicValue = 0d;
     private static int quickTalkSpellStage = 0;
+
+    private static boolean isURLGenerateEnable = true;
+    private static boolean isURLCopyEnable = true;
+    private static boolean isURLComponentPrintEnable = true;
 
     public static void loadConfig(FMLPreInitializationEvent event) {
         config = new Configuration(event.getSuggestedConfigurationFile(), TheLowTooltipMod.VERSION, true);
@@ -38,7 +43,9 @@ public class TheLowTooltipModConfig {
                 .setCategoryLanguageKey(TOOLTIP_CATEGORY, "config.thelowtooltipmod.category.general.tooltip")
                 .setCategoryComment(TOOLTIP_CATEGORY, "ツールチップ表示の設定")
                 .setCategoryLanguageKey(PARK_CATEGORY, "config.thelowtooltipmod.category.general.park")
-                .setCategoryComment(PARK_CATEGORY, "計算に使用するパークの値の設定");
+                .setCategoryComment(PARK_CATEGORY, "計算に使用するパークの値の設定")
+                .setCategoryLanguageKey(CALC_URL_CATEGORY, "config.thelowtooltipmod.category.general.calcurl")
+                .setCategoryComment(CALC_URL_CATEGORY, "WEBダメージ計算機、URL生成機能の設定");
     }
 
     public static void syncConfig() {
@@ -57,6 +64,10 @@ public class TheLowTooltipModConfig {
                 .setLanguageKey("config.thelowtooltipmod.prop.park.overstrengthmagic")
                 .getDouble();
         quickTalkSpellStage = config.getInt("quicktalkspell", PARK_CATEGORY, 0, 0, 10, "CTの計算に使うCT減少パークの値", "config.thelowtooltipmod.prop.park.quicktalkspell");
+
+        isURLGenerateEnable = config.getBoolean("enablegenerateurl", CALC_URL_CATEGORY, true, "ThelowDamageCalculationのURL生成機能を使用するかどうかの設定", "config.thelowtooltipmod.prop.url.enablegenerateurl");
+        isURLCopyEnable = config.getBoolean("enablecopyurl", CALC_URL_CATEGORY, true, "URL生成時、クリップボードに結果をコピーするかどうかの設定", "config.thelowtooltipmod.prop.url.enablecopyurl");
+        isURLComponentPrintEnable = config.getBoolean("enableprintcomponent", CALC_URL_CATEGORY, true, "URL生成時、コンポーネントを表示するかどうかの設定", "config.thelowtooltipmod.prop.url.enableprintcomponent");
 
         if (config.hasChanged()) {
             config.save();
@@ -118,6 +129,18 @@ public class TheLowTooltipModConfig {
             default:
                 return 0.0d;
         }
+    }
+
+    public static boolean isURLGenerateEnable() {
+        return isURLGenerateEnable;
+    }
+
+    public static boolean isURLCopyEnable() {
+        return isURLCopyEnable;
+    }
+
+    public static boolean isIsURLComponentPrintEnable() {
+        return isURLComponentPrintEnable;
     }
 
     public static double getQuickSpellTalkMultiply() {

@@ -2,6 +2,7 @@
 config.thelowtooltipmod.category.general=全般
 config.thelowtooltipmod.category.general.tooltip=ツールチップ
 config.thelowtooltipmod.category.general.park=パーク
+config.thelowtooltipmod.category.general.calcuurl=URL生成機能
 
 # configProperty:Tooltip
 config.thelowtooltipmod.prop.tooltip.enabletooltipdisplay=ツールチップ表示有効
@@ -14,3 +15,8 @@ config.thelowtooltipmod.prop.park.overstrengthsword=剣攻撃力増加パーク�
 config.thelowtooltipmod.prop.park.overstrengthbow=弓攻撃力増加パークの値
 config.thelowtooltipmod.prop.park.overstrengthmagic=魔法攻撃力増加パークの値
 config.thelowtooltipmod.prop.park.quicktalkspell=スキルCT減少パークの値
+
+# configProperty:TheLowDamageCalculationUrl
+config.thelowtooltipmod.prop.url.enablegenerateurl=URL生成機能有効
+config.thelowtooltipmod.prop.url.enablecopyurl=クリップボードにURLをコピー
+config.thelowtooltipmod.prop.url.enableprintcomponent=URL生成時にコンポーネントを表示
