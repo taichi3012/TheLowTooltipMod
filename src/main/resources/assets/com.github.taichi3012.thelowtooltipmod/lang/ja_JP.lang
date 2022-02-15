@@ -2,7 +2,7 @@
 config.thelowtooltipmod.category.general=全般
 config.thelowtooltipmod.category.general.tooltip=ツールチップ
 config.thelowtooltipmod.category.general.park=パーク
-config.thelowtooltipmod.category.general.calcuurl=URL生成機能
+config.thelowtooltipmod.category.general.calcurl=URL生成機能
 
 # configProperty:Tooltip
 config.thelowtooltipmod.prop.tooltip.enabletooltipdisplay=ツールチップ表示有効
