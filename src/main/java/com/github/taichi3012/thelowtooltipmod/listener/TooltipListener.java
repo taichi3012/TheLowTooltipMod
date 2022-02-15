@@ -7,6 +7,7 @@ import com.github.taichi3012.thelowtooltipmod.weapon.*;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.SkillManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -82,8 +83,13 @@ public class TooltipListener {
         }
 
         if (stack.getTagCompound().hasKey("view_weapon_skill_id")) {
+            EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+            if (player == null) {
+                return;
+            }
+
             IWeaponSkillAble skill = SkillManager.getSkill(stack.getTagCompound().getString("view_weapon_skill_id"));
-            ItemStack heldStack = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem();
+            ItemStack heldStack = player.getCurrentEquippedItem();
             requestPlayerStatus(false);
 
             if (skill != null && heldStack != null && TheLowNBTUtil.hasDamage(heldStack) && skill.isActive(new WeaponData(heldStack))) {

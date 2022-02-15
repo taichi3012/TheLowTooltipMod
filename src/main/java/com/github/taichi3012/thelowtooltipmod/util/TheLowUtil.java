@@ -4,6 +4,7 @@ import com.github.taichi3012.thelowtooltipmod.api.TheLowAPI;
 import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.WeaponType;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.item.ItemStack;
 
 import java.util.*;
@@ -31,13 +32,23 @@ public class TheLowUtil {
     }
 
     public static double getAttackMultiplyAbilityGain(WeaponType weaponType) {
+        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+        if (player == null) {
+            return 0.0d;
+        }
+
         return (TheLowTooltipModConfig.getOSParkGainByWeaponType(weaponType) +
-                TheLowAPI.getPlayerJobByUUID(Minecraft.getMinecraft().thePlayer.getUniqueID().toString()).getGainByWeaponType(weaponType) +
+                TheLowAPI.getPlayerJobByUUID(player.getUniqueID().toString()).getGainByWeaponType(weaponType) +
                 TheLowUtil.getEquipAttackGain(weaponType));
     }
 
     public static double getEquipAttackGain(WeaponType weaponType) {
-        return  Arrays.stream(Minecraft.getMinecraft().thePlayer.inventory.armorInventory)
+        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+        if (player == null) {
+            return 0.0d;
+        }
+
+        return  Arrays.stream(player.inventory.armorInventory)
                 .mapToDouble(equip -> generateEquipAttackGain(equip).get(weaponType))
                 .sum();
     }
