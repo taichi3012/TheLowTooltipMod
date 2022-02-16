@@ -1,3 +1,6 @@
+# 現在22/2アプデ未対応
+<br>
+
 # TheLowTooltipMod
 RPGサーバーTheLowで武器のダメージやCTをツールチップに表示する非公式Mod<br>
 対応バージョンはForge1.8.9です。
