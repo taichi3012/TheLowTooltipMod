@@ -54,7 +54,6 @@ public class TheLowTooltipMod {
                 event.setCanceled(true);
             }
         } catch (RuntimeException e) {
-            logger.warn("APIの解析に失敗しました。");
             e.printStackTrace();
         }
 
