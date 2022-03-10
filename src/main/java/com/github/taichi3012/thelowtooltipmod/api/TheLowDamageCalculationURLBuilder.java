@@ -10,8 +10,6 @@ import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
 import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 
 import java.util.*;
 
@@ -64,15 +62,9 @@ public class TheLowDamageCalculationURLBuilder {
 
         instance.weaponDamage = weaponData.getDamage();
         instance.specialDamage = weaponData.getSpecialDamage(targetResultType);
-
-        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-
-        if (player != null) {
-            instance.jobGain = TheLowAPI.getPlayerJobByUUID(player.getUniqueID().toString()).getGainByWeaponType(weaponType);
-        }
-
         instance.equipGain = TheLowUtil.getEquipAttackGain(weaponType);
         instance.parkGain = TheLowTooltipModConfig.getOSParkGainByWeaponType(weaponType);
+        instance.jobGain = TheLowUtil.getPlayerJobType().getGainByWeaponType(weaponType);
         instance.legendValue = MagicStoneUtil.getLegendValue(weaponData);
 
         ResultCategoryType finalResultType = targetResultType;

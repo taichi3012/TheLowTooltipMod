@@ -2,6 +2,7 @@ package com.github.taichi3012.thelowtooltipmod.util;
 
 import com.github.taichi3012.thelowtooltipmod.api.TheLowAPI;
 import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.WeaponType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -32,13 +33,8 @@ public class TheLowUtil {
     }
 
     public static double getAttackMultiplyAbilityGain(WeaponType weaponType) {
-        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-        if (player == null) {
-            return 0.0d;
-        }
-
         return (TheLowTooltipModConfig.getOSParkGainByWeaponType(weaponType) +
-                TheLowAPI.getPlayerJobByUUID(player.getUniqueID().toString()).getGainByWeaponType(weaponType) +
+                getPlayerJobType().getGainByWeaponType(weaponType) +
                 TheLowUtil.getEquipAttackGain(weaponType));
     }
 
@@ -51,6 +47,20 @@ public class TheLowUtil {
         return  Arrays.stream(player.inventory.armorInventory)
                 .mapToDouble(equip -> generateEquipAttackGain(equip).get(weaponType))
                 .sum();
+    }
+
+    public static JobType getPlayerJobType() {
+        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+        if (player == null) {
+            return JobType.UNKNOWN_JOB;
+        }
+
+        TheLowAPI.PlayerStatus status = TheLowAPI.getPlayerStatus(player.getUniqueID());
+        if (status == null) {
+            return JobType.UNKNOWN_JOB;
+        }
+
+        return status.jobType;
     }
 
     public static Map<WeaponType, Double> generateEquipAttackGain(ItemStack stack) {

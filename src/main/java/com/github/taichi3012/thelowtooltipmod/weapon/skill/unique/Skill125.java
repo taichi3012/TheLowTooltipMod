@@ -1,14 +1,12 @@
 package com.github.taichi3012.thelowtooltipmod.weapon.skill.unique;
 
-import com.github.taichi3012.thelowtooltipmod.api.TheLowAPI;
 import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
 import com.github.taichi3012.thelowtooltipmod.util.JavaUtil;
 import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
+import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,12 +16,7 @@ import java.util.List;
 public class Skill125 implements IWeaponSkillAble {
     @Override
     public double getCoolTime(WeaponData weaponData) {
-        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-        if (player == null) {
-            return  0.0d;
-        }
-
-        double ct = TheLowAPI.getPlayerJobByUUID(player.getUniqueID().toString()).equals(JobType.PRIEST) ? 132.0d : 220.0d;
+        double ct = TheLowUtil.getPlayerJobType().equals(JobType.PRIEST) ? 132.0d : 220.0d;
         return ct * TheLowTooltipModConfig.getQuickSpellTalkMultiply() * MagicStoneUtil.getCasterMultiply(weaponData) + 30.0d;
     }
 
