@@ -17,46 +17,31 @@ public class DamageCalcUtil {
      * @param damages カテゴライズ済みダメージ
      */
     public static Map<ResultCategoryType, Double> removeAllRedundancy(Map<ResultCategoryType, Double> damages) {
-        //素ダメージと同じダメージのカテゴリの削除
-        damages.keySet()
-                .removeIf(key -> key != ResultCategoryType.NO_SPECIAL_CATEGORY && Objects.equals(damages.get(key), damages.get(ResultCategoryType.NO_SPECIAL_CATEGORY)));
+        //素ダメージとダメージが同じカテゴリーを削除
+        List<ResultCategoryType> removeCategory = new ArrayList<>();
+        damages.keySet().stream()
+                .filter(category -> category != ResultCategoryType.NO_SPECIAL_CATEGORY)
+                .filter(category -> Objects.equals(damages.get(ResultCategoryType.NO_SPECIAL_CATEGORY), damages.get(category)))
+                .forEach(removeCategory::add);
+        removeCategory.forEach(damages::remove);
 
-        Iterator<ResultCategoryType> iterator = damages.keySet().iterator();
-        while (iterator.hasNext()) {
-            ResultCategoryType category = iterator.next();
-
-            boolean isRedundancy = damages.keySet().stream()
-                    .anyMatch(key -> key != category && Objects.equals(damages.get(key), damages.get(category)) && getAvailableSpecial(category).containsAll(getAvailableSpecial(key)));
-
-            if (isRedundancy) {
-                iterator.remove();
-            }
-        }
+        //ダメージがかぶっているカテゴリーを削除
+        removeRedundancy(damages, UniqueSpecialType.UNDEAD_SPECIAL_DAMAGE, ResultCategoryType.UNDEAD_CATEGORY);
+        removeRedundancy(damages, UniqueSpecialType.INSECT_SPECIAL_DAMAGE, ResultCategoryType.INSECT_CATEGORY);
+        removeRedundancy(damages, SpecialMagicStoneType.ZOMBIE_MAGIC_STONE, ResultCategoryType.ZOMBIE_CATEGORY);
+        removeRedundancy(damages, SpecialMagicStoneType.LIVING_MAGIC_STONE, ResultCategoryType.LIVING_CATEGORY);
 
         return damages;
     }
 
-    private static List<SpecialAttackable> getAvailableSpecial(ResultCategoryType type) {
-        List<SpecialAttackable> specials = new ArrayList<>();
-        specials.addAll(Arrays.asList(UniqueSpecialType.values()));
-        specials.addAll(Arrays.asList(SpecialMagicStoneType.values()));
-
-        return specials.stream()
-                .filter(sp -> sp.isAvailable(type))
-                .collect(Collectors.toList());
-    }
-
-    /*
     private static void removeRedundancy(Map<ResultCategoryType, Double> damages, SpecialAttackable eqFactor, ResultCategoryType eqCategory) {
         //比べる基準となるカテゴリーが存在しない場合は返す
         if (!damages.containsKey(eqCategory)) {
             return;
         }
 
-        damages.keySet()
-                .removeIf(next -> !eqCategory.equals(next) && eqFactor.isAvailable(next) && Objects.equals(damages.get(eqCategory), damages.get(next)));
+        damages.keySet().removeIf(next -> !eqCategory.equals(next) && eqFactor.isAvailable(next) && Objects.equals(damages.get(eqCategory), damages.get(next)));
     }
-     */
 
     public static double roundDamage(double damage) {
         return JavaUtil.digitRound(damage, 3.0d);
