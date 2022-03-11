@@ -1,5 +1,6 @@
 package com.github.taichi3012.thelowtooltipmod.util;
 
+import com.github.taichi3012.thelowtooltipmod.TheLowTooltipMod;
 import com.github.taichi3012.thelowtooltipmod.api.TheLowAPI;
 import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
@@ -34,7 +35,7 @@ public class TheLowUtil {
 
     public static double getAttackMultiplyAbilityGain(WeaponType weaponType) {
         return (TheLowTooltipModConfig.getOSParkGainByWeaponType(weaponType) +
-                getPlayerJobType().getGainByWeaponType(weaponType) +
+                getPlayerJobGain(weaponType) +
                 TheLowUtil.getEquipAttackGain(weaponType));
     }
 
@@ -49,6 +50,25 @@ public class TheLowUtil {
                 .sum();
     }
 
+    public static int getPlayerArtLevel(WeaponType weaponType) {
+        TheLowAPI.PlayerStatus status = TheLowAPI.getPlayerStatus(TheLowTooltipMod.getPlayerUUID());
+
+        if (status == null) {
+            return 0;
+        }
+
+        switch (weaponType) {
+            case SWORD:
+                return status.swordStatus.leve;
+            case BOW:
+                return status.bowStatus.leve;
+            case MAGIC:
+                return status.magicStatus.leve;
+            default:
+                return 0;
+        }
+    }
+
     public static JobType getPlayerJobType() {
         EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
         if (player == null) {
@@ -61,6 +81,14 @@ public class TheLowUtil {
         }
 
         return status.jobType;
+    }
+
+    public static double getPlayerJobGain(WeaponType weaponType) {
+        if (weaponType == null) {
+            return 0.0d;
+        }
+
+        return getPlayerJobType().getGainByWeaponType(weaponType, getPlayerArtLevel(weaponType));
     }
 
     public static Map<WeaponType, Double> generateEquipAttackGain(ItemStack stack) {

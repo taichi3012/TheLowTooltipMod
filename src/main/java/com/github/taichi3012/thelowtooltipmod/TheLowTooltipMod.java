@@ -6,6 +6,8 @@ import com.github.taichi3012.thelowtooltipmod.listener.GuiParkSelectorListener;
 import com.github.taichi3012.thelowtooltipmod.listener.TooltipListener;
 import com.github.taichi3012.thelowtooltipmod.listener.WebCalcURLGenerateListener;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.SkillManager;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -18,6 +20,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
+
+import java.util.UUID;
 
 @Mod(modid = TheLowTooltipMod.MOD_ID, version = TheLowTooltipMod.VERSION, name = TheLowTooltipMod.MOD_NAME, guiFactory = "com.github.taichi3012.thelowtooltipmod.gui.TheLowTooltipModGuiFactory")
 public class TheLowTooltipMod {
@@ -45,6 +49,12 @@ public class TheLowTooltipMod {
         ClientRegistry.registerKeyBinding(keyCopyWebCalculationURL);
 
         SkillManager.registerAll();
+    }
+
+    public static UUID getPlayerUUID() {
+        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+
+        return player != null ? player.getUniqueID() : null;
     }
 
     @SubscribeEvent(receiveCanceled = true)

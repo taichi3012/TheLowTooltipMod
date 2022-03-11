@@ -64,7 +64,7 @@ public class TheLowDamageCalculationURLBuilder {
         instance.specialDamage = weaponData.getSpecialDamage(targetResultType);
         instance.equipGain = TheLowUtil.getEquipAttackGain(weaponType);
         instance.parkGain = TheLowTooltipModConfig.getOSParkGainByWeaponType(weaponType);
-        instance.jobGain = TheLowUtil.getPlayerJobType().getGainByWeaponType(weaponType);
+        instance.jobGain = TheLowUtil.getPlayerJobGain(weaponType);
         instance.legendValue = MagicStoneUtil.getLegendValue(weaponData);
 
         ResultCategoryType finalResultType = targetResultType;
