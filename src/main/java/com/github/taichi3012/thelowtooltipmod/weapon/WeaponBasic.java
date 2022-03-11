@@ -1,5 +1,6 @@
 package com.github.taichi3012.thelowtooltipmod.weapon;
 
+import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.WeaponType;
 import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
@@ -27,10 +28,12 @@ public class WeaponBasic extends AbstractWeapon {
         return weaponData;
     }
 
+    //TODO ダメージを計算,保持するクラスを別途作成する
     public @NotNull Map<ResultCategoryType, Double> generateCategorizedDamage(boolean isIncludeUniqueSpecial) {
         Map<ResultCategoryType, Double> result = new HashMap<>();
         //武器の種類がnullの場合は"剣"として処理する
         WeaponType weaponType = Objects.nonNull(weaponData.getWeaponType()) ? weaponData.getWeaponType() : WeaponType.SWORD;
+        JobType job = TheLowUtil.getPlayerJobType();
         double abilityMultiply = 1.0d + TheLowUtil.getAttackMultiplyAbilityGain(weaponType) / 100.0d;
         double legendMultiply = Math.pow(1.06d, MagicStoneUtil.getLegendValue(weaponData));
 
@@ -41,6 +44,17 @@ public class WeaponBasic extends AbstractWeapon {
             resultDamage *= weaponData.getMSMultiply(categoryType);
             resultDamage *= abilityMultiply;
             resultDamage *= legendMultiply;
+
+            switch (categoryType) {
+                case ZOMBIE_CATEGORY:
+                    if (job.equals(JobType.SKULL_PIERCER))
+                        resultDamage *= 0.9d;
+                    break;
+                case SKELETON_CATEGORY:
+                    if (job.equals(JobType.DARK_BLASTER))
+                        resultDamage *= 0.9d;
+                    break;
+            }
 
             result.put(categoryType, resultDamage);
         }
