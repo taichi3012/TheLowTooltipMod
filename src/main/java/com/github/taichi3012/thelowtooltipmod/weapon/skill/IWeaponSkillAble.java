@@ -28,7 +28,7 @@ public interface IWeaponSkillAble {
 
         return new ArrayList<>(
                 Collections.singleton(
-                        String.format("§3[クールタイム]§e -> %1$s秒", JavaUtil.digitRound(getCoolTime(weaponData), 2.0d)))
+                        String.format("§3[クールタイム]§e -> %1$s秒", JavaUtil.digitRound(ct, 2.0d)))
                 );
     }
 
