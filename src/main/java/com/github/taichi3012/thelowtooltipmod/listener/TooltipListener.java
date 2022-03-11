@@ -48,6 +48,9 @@ public class TooltipListener {
                     case "12":
                         weapon = new WeaponPlaceLight(stack);
                         break;
+                    case "29":
+                        weapon = new WeaponAmrudad(stack);
+                        break;
                     case "36":
                         weapon = new WeaponGekokujo(stack);
                         break;

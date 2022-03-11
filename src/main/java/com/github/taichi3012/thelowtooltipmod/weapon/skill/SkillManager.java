@@ -120,7 +120,7 @@ public class SkillManager {
         register(new SkillBasic("wskill110", "アイススタンプ", "28", 45.0d, 0.0d));
         register(new SkillBasic("wskill111", "雪柱", "28", 50.0d, 0.0d, false, 4.0d));
 
-        register(new SkillBasic("wskill113", "闇の解放", "29", true, 2.0d));
+        register(new Skill113());
         register(new Skill114());
         register(new Skill116());
 

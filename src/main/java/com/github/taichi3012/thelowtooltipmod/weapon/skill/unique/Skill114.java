@@ -1,6 +1,7 @@
 package com.github.taichi3012.thelowtooltipmod.weapon.skill.unique;
 
 import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.WeaponType;
 import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
@@ -50,6 +51,7 @@ public class Skill114 implements IWeaponSkillAble {
         Map<ResultCategoryType, Double> damages =
                 DamageCalcUtil.removeAllRedundancy(new WeaponBasic(weaponData).generateCategorizedDamage(true));
         double abilityGain = TheLowUtil.getAttackMultiplyAbilityGain(WeaponType.SWORD);
+        JobType job = TheLowUtil.getPlayerJobType();
 
         if (WeaponType.SWORD.equals(weaponData.getWeaponType())) {
             result.add("§4[ダメージ]");
@@ -60,7 +62,16 @@ public class Skill114 implements IWeaponSkillAble {
                         //normalDamage : resultDamage == nowAbility : nowAbility + gain
                         double decDamage = (normalDamage * (abilityGain + 70.0d)) / (abilityGain + 100);
                         double incDamage = (normalDamage * (abilityGain + 120.0d)) / (abilityGain + 100);
+
                         result.add(StringUtils.repeat(' ', 2) + category.getDisplayColor() + category.getName() + ":");
+
+                        //専用職業だった場合はここで返す
+                        if (job.equals(JobType.DARK_BLASTER)) {
+                            result.add(String.format(StringUtils.repeat(' ', 4) + "§7Boss20%%上昇:§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(incDamage * 1.1d), DamageCalcUtil.roundCriticalDamage(incDamage * 1.1d)));
+                            result.add(String.format(StringUtils.repeat(' ', 4) + "§7Mob20%%上昇 :§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(incDamage), DamageCalcUtil.roundCriticalDamage(incDamage)));
+                            return;
+                        }
+
                         result.add(String.format(StringUtils.repeat(' ', 4) + "§720%%上昇:§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(incDamage), DamageCalcUtil.roundCriticalDamage(incDamage)));
                         result.add(String.format(StringUtils.repeat(' ', 4) + "§730%%減少:§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(decDamage), DamageCalcUtil.roundCriticalDamage(decDamage)));
                     });
