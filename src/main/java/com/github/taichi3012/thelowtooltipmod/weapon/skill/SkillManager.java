@@ -177,7 +177,7 @@ public class SkillManager {
 
         register(new SkillBasic("wskill172", "パニッシュメント", "48", 30.0d, 0.0d, false, 2.0d));
         register(new SkillBasic("wskill173", "士気高揚", "48", 40.0d, 30.0d));
-        register(new SkillBasic("wskill174", "ステッドショック", "48", 60.0d, 8.0d, false, 28.0d));
+        register(new SkillBasic("wskill174", "ステッドショック", "48", 60.0d, 8.0d, false, 32.0d));
     }
 
     public static void register(IWeaponSkillAble skill) {
