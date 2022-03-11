@@ -151,8 +151,7 @@ public class SkillManager {
         register(new SkillBasic("wskill139", "インフェライズ", "35", 30.0d, 0.0d, false, 2.0d));
         //register(new SkillHasExplain("wskill140", "グロウ", "35", 0.0d, 0.0d, new String[]{"直撃がヒット", "炸裂がヒット"}, true, new double[]{3.4d, 1.4d}));
 
-        register(new SkillHasExplain("wskill141", "下剋上", "36", 0.0d, 0.0d,
-                new String[]{"Boss", "Mob"}, true, new double[]{1.2d, 0.7d}));
+        register(new Skill141());
         register(new SkillBasic("wskill143", "集中", "36", 35.0d, 20.0d));
         register(new SkillBasic("wskill144", "天下無双", "36", 60.0d, 15.0d));
 
