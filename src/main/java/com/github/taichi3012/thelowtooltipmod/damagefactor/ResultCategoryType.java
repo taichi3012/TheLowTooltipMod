@@ -13,6 +13,8 @@ public enum ResultCategoryType {
     IRON_GOLEM_CATEGORY("ゴーレム", EnumChatFormatting.GRAY.toString()),
     INSECT_CATEGORY("虫", EnumChatFormatting.DARK_GREEN.toString()),
     ANIMAL_CATEGORY("動物", EnumChatFormatting.GREEN.toString()),
+    WITHER_CATEGORY("ウィザー", EnumChatFormatting.DARK_GRAY.toString()),
+    GIANT_CATEGORY("ジャイアント", EnumChatFormatting.DARK_GREEN.toString()),
     NO_SPECIAL_CATEGORY("素ダメージ", EnumChatFormatting.AQUA.toString());
 
     private final String name;

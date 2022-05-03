@@ -12,6 +12,8 @@ public enum UniqueSpecialType implements SpecialAttackable {
     INSECT_SPECIAL_DAMAGE("虫特攻", UniqueSpecialType::isInsect),
     GUARDIAN_SPECIAL_DAMAGE("ガーディアン特攻", c -> c == ResultCategoryType.GUARDIAN_CATEGORY),
     ANIMAL_SPECIAL_DAMAGE("動物特攻", c -> c == ResultCategoryType.ANIMAL_CATEGORY),
+    WITHER_SPECIAL_DAMAGE("ウィザー特攻", c -> c == ResultCategoryType.WITHER_CATEGORY),
+    GIANT_SPECIAL_DAMAGE("ジャイアント特攻", c -> c == ResultCategoryType.GIANT_CATEGORY),
     UNKNOWN_SPECIAL_DAMAGE("Unknown", c -> false);
 
     private final String name;
@@ -27,6 +29,7 @@ public enum UniqueSpecialType implements SpecialAttackable {
             case SKELETON_CATEGORY:
             case ZOMBIE_CATEGORY:
             case PIG_ZOMBIE_CATEGORY:
+            case WITHER_CATEGORY:
             case UNDEAD_CATEGORY:
                 return true;
             default:
@@ -64,6 +67,10 @@ public enum UniqueSpecialType implements SpecialAttackable {
                 return GUARDIAN_SPECIAL_DAMAGE;
             case "ANIMAL":
                 return ANIMAL_SPECIAL_DAMAGE;
+            case "WITHER":
+                return WITHER_SPECIAL_DAMAGE;
+            case "GIANT":
+                return GIANT_SPECIAL_DAMAGE;
             default:
                 return UNKNOWN_SPECIAL_DAMAGE;
         }
