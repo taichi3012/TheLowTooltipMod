@@ -40,4 +40,14 @@ public class ItemNBTUtil {
 
         return result;
     }
+
+    public static String getStringTag(ItemStack stack, String key) {
+        NBTTagCompound nbtTagComp = stack.getTagCompound();
+
+        if (nbtTagComp == null) {
+            return "";
+        }
+
+        return nbtTagComp.getString(key);
+    }
 }

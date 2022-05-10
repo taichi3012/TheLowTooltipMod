@@ -65,14 +65,8 @@ public class TheLowNBTUtil {
     }
 
     public static String[] getMagicStoneString(ItemStack stack) {
-        final String NBTKey = "thelow_item_slot_list";
-        NBTTagCompound itemNBT = stack.getTagCompound();
-
-        if (itemNBT == null || itemNBT.getString(NBTKey).isEmpty()) {
-            return new String[0];
-        }
-
-        return itemNBT.getString(NBTKey).split(",");
+        String value = ItemNBTUtil.getStringTag(stack, "thelow_item_slot_list");
+        return value.isEmpty() ? new String[0] : value.split(",");
     }
 
     public static List<MagicStoneData> getMagicStoneData(ItemStack stack) {
@@ -85,35 +79,15 @@ public class TheLowNBTUtil {
     }
 
     public static String getSkillSetID(ItemStack stack) {
-        final String NBTKey = "thelow_item_weapon_skill_set_id";
-        NBTTagCompound itemNBT = stack.getTagCompound();
-
-        if (itemNBT == null || itemNBT.getString(NBTKey).isEmpty()) {
-            return null;
-        }
-
-        return itemNBT.getString(NBTKey);
+        return ItemNBTUtil.getStringTag(stack, "thelow_item_weapon_skill_set_id");
     }
 
     public static String getTheLowID(ItemStack stack) {
-        final String NBTKey = "thelow_item_id";
-        NBTTagCompound itemNBT = stack.getTagCompound();
-
-        if (itemNBT == null || itemNBT.getString(NBTKey).isEmpty()) {
-            return null;
-        }
-
-        return itemNBT.getString(NBTKey);
+        return ItemNBTUtil.getStringTag(stack, "thelow_item_id");
     }
 
     public static String[] getNormalSkillList(ItemStack stack) {
-        final String NBTKey = "thelow_nbttag_weaponskilllist";
-        NBTTagCompound itemNBT = stack.getTagCompound();
-
-        if (itemNBT == null || itemNBT.getString(NBTKey).isEmpty()) {
-            return new String[0];
-        }
-
-        return itemNBT.getString(NBTKey).split(",");
+        String value = ItemNBTUtil.getStringTag(stack, "thelow_nbttag_weaponskilllist");
+        return value.isEmpty() ? new String[0] : value.split(",");
     }
 }
