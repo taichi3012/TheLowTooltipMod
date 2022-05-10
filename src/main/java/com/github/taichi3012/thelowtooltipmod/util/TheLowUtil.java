@@ -1,6 +1,5 @@
 package com.github.taichi3012.thelowtooltipmod.util;
 
-import com.github.taichi3012.thelowtooltipmod.TheLowTooltipMod;
 import com.github.taichi3012.thelowtooltipmod.api.TheLowAPI;
 import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
@@ -51,7 +50,7 @@ public class TheLowUtil {
     }
 
     public static int getPlayerArtLevel(WeaponType weaponType) {
-        TheLowAPI.PlayerStatus status = TheLowAPI.getPlayerStatus(TheLowTooltipMod.getPlayerUUID());
+        TheLowAPI.PlayerStatus status = TheLowAPI.getPlayerStatus(MCPlayerUtil.getPlayerUUID());
 
         if (status == null) {
             return 0;
