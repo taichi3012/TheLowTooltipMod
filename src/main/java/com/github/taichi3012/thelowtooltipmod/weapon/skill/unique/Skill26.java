@@ -44,7 +44,7 @@ public class Skill26 implements IWeaponSkillAble {
     @Override
     public @NotNull List<String> getResultContext(WeaponData weaponData) {
         List<String> result = new ArrayList<>();
-        boolean isLightning = weaponData.getTheLowId() != null && weaponData.getTheLowId().equals("mainH弓LvEliteC1boss");
+        boolean isLightning = weaponData.getTheLowId().equals("mainH弓LvEliteC1boss");
         Map<ResultCategoryType, Double> damages =
                 DamageCalcUtil.removeAllRedundancy(new WeaponBasic(weaponData).generateCategorizedDamage(true));
 
