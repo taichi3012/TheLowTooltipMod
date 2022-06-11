@@ -6,11 +6,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Map;
 
-abstract class AbstractWeapon {
+public abstract class AbstractWeapon {
 
-    abstract @NotNull List<String> generateResultContext();
+    public abstract @NotNull List<String> generateResultContext();
 
-    abstract WeaponData getWeaponData();
+    public abstract WeaponData getWeaponData();
 
-    abstract @NotNull Map<ResultCategoryType, Double> generateCategorizedDamage(boolean includeUniqueSpecial);
+    public abstract @NotNull Map<ResultCategoryType, Double> generateCategorizedDamage(boolean includeUniqueSpecial);
 }
