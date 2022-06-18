@@ -10,7 +10,6 @@ import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,30 +18,15 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-public class Skill114 implements IWeaponSkillAble {
+public class WeaponSkill114 extends WeaponSkillUniqueBase {
+
+    public WeaponSkill114() {
+        super("wskill114", "血の代償", "29");
+    }
+
     @Override
     public double getCoolTime(WeaponData weaponData) {
         return 20.0d * TheLowTooltipModConfig.getQuickSpellTalkMultiply() * MagicStoneUtil.getCasterMultiply(weaponData) + 10.0d;
-    }
-
-    @Override
-    public String getId() {
-        return "wskill114";
-    }
-
-    @Override
-    public String getSkillSetId() {
-        return "29";
-    }
-
-    @Override
-    public String getName(WeaponData weaponData) {
-        return isActive(weaponData) ? "血の代償" : "";
-    }
-
-    @Override
-    public boolean isActive(WeaponData weaponData) {
-        return getSkillSetId().equals(weaponData.getSkillSetId());
     }
 
     @Override

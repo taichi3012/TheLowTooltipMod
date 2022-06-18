@@ -8,45 +8,23 @@ import com.github.taichi3012.thelowtooltipmod.util.TheLowNBTUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
-public class SkillAttackNormal implements IWeaponSkillAble {
+public class WeaponNormalSkillAttack extends WeaponNormalSkillBase {
 
-    public final String id;
-    public final String name;
     public final double multiply;
     public final double coolTime;
 
-    public SkillAttackNormal(String id, String name, double multiply, double coolTime) {
-        this.id = id;
-        this.name = name;
+    public WeaponNormalSkillAttack(String id, String name, double multiply, double coolTime) {
+        super(id, name);
         this.multiply = multiply;
         this.coolTime = coolTime;
-    }
-
-    @Override
-    public String getId() {
-        return id;
-    }
-
-    @Override
-    public String getSkillSetId() {
-        return null;
-    }
-
-    @Override
-    public String getName(WeaponData weaponData) {
-        return name;
-    }
-
-    @Override
-    public boolean isActive(WeaponData weaponData) {
-        String[] skillList = TheLowNBTUtil.getNormalSkillList(weaponData.getItemStack());
-        return Arrays.asList(skillList).contains(getId());
     }
 
     @Override

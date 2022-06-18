@@ -7,31 +7,28 @@ import com.github.taichi3012.thelowtooltipmod.util.JavaUtil;
 import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
+import com.github.taichi3012.thelowtooltipmod.weapon.skill.unique.WeaponSkillUniqueBase;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class SkillHasExplain implements IWeaponSkillAble {
+public class WeaponSkillHasExplain extends WeaponSkillUniqueBase {
 
-    public final String id;
-    public final String name;
-    public final String skillSetId;
     public final double defaultCoolTime;
     public final double activeTime;
-    public final int explainValue;
-    public final String[] explain;
-    public final boolean[] isIncludeUniqueSpecial;
-    public final double[] multiply;
 
-    public SkillHasExplain(String id, String name, String skillSetId, double defaultCoolTime, double activeTime, String[] explain, boolean[] isIncludeUniqueSpecial, double[] multiply) {
+    private final int explainValue;
+    private final String[] explain;
+    private final boolean[] isIncludeUniqueSpecial;
+    private final double[] multiply;
+
+    public WeaponSkillHasExplain(String id, String name, List<String> skillSetIds, double defaultCoolTime, double activeTime, String[] explain, boolean[] isIncludeUniqueSpecial, double[] multiply) {
+        super(id, name, skillSetIds);
         if (explain.length != isIncludeUniqueSpecial.length || isIncludeUniqueSpecial.length != multiply.length) {
             throw new IllegalArgumentException();
         }
 
-        this.id = id;
-        this.name = name;
-        this.skillSetId = skillSetId;
         this.defaultCoolTime = defaultCoolTime;
         this.activeTime = activeTime;
         this.explainValue = explain.length;
@@ -40,38 +37,18 @@ public class SkillHasExplain implements IWeaponSkillAble {
         this.multiply = multiply;
     }
 
-    public SkillHasExplain(String id, String name, String skillSetId, double defaultCoolTime, double activeTime, String explain, boolean isIncludeUniqueSpecial, double multiply) {
-        this(id, name, skillSetId, defaultCoolTime, activeTime, new String[]{explain}, new boolean[]{isIncludeUniqueSpecial}, new double[]{multiply});
+    public WeaponSkillHasExplain(String id, String name, String skillSetId, double defaultCoolTime, double activeTime, String explain, boolean isIncludeUniqueSpecial, double multiply) {
+        this(id, name, Collections.singletonList(skillSetId), defaultCoolTime, activeTime, new String[]{explain}, new boolean[]{isIncludeUniqueSpecial}, new double[]{multiply});
     }
 
-    public SkillHasExplain(String id, String name, String skillSetId, double defaultCoolTime, double activeTime, String[] explain, boolean isIncludeUniqueSpecial, double[] multiply) {
-        this(id, name, skillSetId, defaultCoolTime, activeTime, explain, JavaUtil.generateFillArray(explain.length, isIncludeUniqueSpecial), multiply);
+    public WeaponSkillHasExplain(String id, String name, String skillSetId, double defaultCoolTime, double activeTime, String[] explain, boolean isIncludeUniqueSpecial, double[] multiply) {
+        this(id, name, Collections.singletonList(skillSetId), defaultCoolTime, activeTime, explain, JavaUtil.generateFillArray(explain.length, isIncludeUniqueSpecial), multiply);
     }
 
 
     @Override
     public double getCoolTime(WeaponData weaponData) {
         return this.defaultCoolTime * TheLowTooltipModConfig.getQuickSpellTalkMultiply() * MagicStoneUtil.getCasterMultiply(weaponData) + activeTime;
-    }
-
-    @Override
-    public String getId() {
-        return this.id;
-    }
-
-    @Override
-    public String getSkillSetId() {
-        return this.skillSetId;
-    }
-
-    @Override
-    public String getName(WeaponData weaponData) {
-        return isActive(weaponData) ? this.name : "";
-    }
-
-    @Override
-    public boolean isActive(WeaponData weaponData) {
-        return weaponData.getSkillSetId() != null && this.skillSetId.contains(weaponData.getSkillSetId());
     }
 
     @Override

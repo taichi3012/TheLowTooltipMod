@@ -6,7 +6,6 @@ import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
 import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,30 +14,15 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-public class Skill26 implements IWeaponSkillAble {
-    @Override
-    public String getId() {
-        return "wskill26";
-    }
+public class WeaponSkill26 extends WeaponSkillUniqueBase {
 
-    @Override
-    public String getSkillSetId() {
-        return "7";
-    }
-
-    @Override
-    public String getName(WeaponData weaponData) {
-        return isActive(weaponData) ? "アイスショット" : "";
+    public WeaponSkill26() {
+        super("wskill26", "アイスショット", "7");
     }
 
     @Override
     public double getCoolTime(WeaponData weaponData) {
         return 25.0d * TheLowTooltipModConfig.getQuickSpellTalkMultiply() * MagicStoneUtil.getCasterMultiply(weaponData) + 10.0d;
-    }
-
-    @Override
-    public boolean isActive(WeaponData weaponData) {
-        return getSkillSetId().equals(weaponData.getSkillSetId());
     }
 
     @Override

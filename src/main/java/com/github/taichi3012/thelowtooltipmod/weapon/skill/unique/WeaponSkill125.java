@@ -6,38 +6,22 @@ import com.github.taichi3012.thelowtooltipmod.util.JavaUtil;
 import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Skill125 implements IWeaponSkillAble {
+public class WeaponSkill125 extends WeaponSkillUniqueBase {
+
+    public WeaponSkill125() {
+        super("wskill125", "恵みの泉", "32");
+    }
+
     @Override
     public double getCoolTime(WeaponData weaponData) {
         double ct = TheLowUtil.getPlayerJobType().equals(JobType.PRIEST) ? 132.0d : 220.0d;
         return ct * TheLowTooltipModConfig.getQuickSpellTalkMultiply() * MagicStoneUtil.getCasterMultiply(weaponData) + 30.0d;
-    }
-
-    @Override
-    public String getId() {
-        return "wskill125";
-    }
-
-    @Override
-    public String getSkillSetId() {
-        return "32";
-    }
-
-    @Override
-    public String getName(WeaponData weaponData) {
-        return isActive(weaponData) ? "恵みの泉" : "";
-    }
-
-    @Override
-    public boolean isActive(WeaponData weaponData) {
-        return getSkillSetId().equals(weaponData.getSkillSetId());
     }
 
     @Override

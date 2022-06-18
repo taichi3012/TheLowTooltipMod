@@ -4,8 +4,8 @@ import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowNBTUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.*;
-import com.github.taichi3012.thelowtooltipmod.weapon.skill.IWeaponSkillAble;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.SkillManager;
+import com.github.taichi3012.thelowtooltipmod.weapon.skill.WeaponSkillBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiScreen;
@@ -91,13 +91,17 @@ public class TooltipListener {
                 return;
             }
 
-            IWeaponSkillAble skill = SkillManager.getSkill(stack.getTagCompound().getString("view_weapon_skill_id"));
             ItemStack heldStack = player.getCurrentEquippedItem();
+            if (heldStack == null || !TheLowNBTUtil.hasDamage(heldStack)) {
+                return;
+            }
+
+            WeaponData weaponData = new WeaponData(heldStack);
+            WeaponSkillBase skill = SkillManager.getSkill(weaponData, stack.getTagCompound().getString("view_weapon_skill_id"));
             requestPlayerStatus(false);
 
-            if (skill != null && heldStack != null && TheLowNBTUtil.hasDamage(heldStack) && skill.isActive(new WeaponData(heldStack))) {
+            if (skill != null && skill.isActive(new WeaponData(heldStack))) {
                 List<String> result = new ArrayList<>();
-                WeaponData weaponData = new WeaponData(heldStack);
 
                 List<String> resultContext = skill.getResultContext(weaponData);
                 if (TheLowTooltipModConfig.isSkillResultContextEnable() && !resultContext.isEmpty()) {
