@@ -50,7 +50,7 @@ public class TheLowUtil {
     }
 
     public static int getPlayerArtLevel(WeaponType weaponType) {
-        TheLowAPI.PlayerStatus status = TheLowAPI.getPlayerStatus(MCPlayerUtil.getPlayerUUID());
+        TheLowAPI.PlayerStatus status = TheLowAPI.getPlayerStatus(MCPlayerUtil.getPlayerUUID().orElse(null));
 
         if (status == null) {
             return 0;
