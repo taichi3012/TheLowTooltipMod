@@ -8,7 +8,6 @@ import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -27,7 +26,7 @@ public class WeaponSkill113 extends WeaponSkillUniqueBase {
     }
 
     @Override
-    public @NotNull List<String> getResultContext(WeaponData weaponData) {
+    public List<String> getResultContext(WeaponData weaponData) {
         List<String> result = new ArrayList<>();
         Map<ResultCategoryType, Double> damages =
                 DamageCalcUtil.removeAllRedundancy(new WeaponBasic(weaponData).generateCategorizedDamage(true));

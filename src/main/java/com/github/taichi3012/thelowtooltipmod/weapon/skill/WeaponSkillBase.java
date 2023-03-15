@@ -2,7 +2,6 @@ package com.github.taichi3012.thelowtooltipmod.weapon.skill;
 
 import com.github.taichi3012.thelowtooltipmod.util.JavaUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,9 +19,9 @@ public abstract class WeaponSkillBase {
 
     public abstract boolean isActive(WeaponData weaponData);
 
-    public abstract @NotNull List<String> getResultContext(WeaponData weaponData);
+    public abstract List<String> getResultContext(WeaponData weaponData);
 
-    public @NotNull List<String> getCoolTimeContext(WeaponData weaponData) {
+    public List<String> getCoolTimeContext(WeaponData weaponData) {
         double ct = getCoolTime(weaponData);
 
         if (ct <= 0) {

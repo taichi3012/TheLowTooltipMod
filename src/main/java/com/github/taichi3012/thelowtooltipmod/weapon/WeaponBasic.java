@@ -8,7 +8,6 @@ import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -29,7 +28,7 @@ public class WeaponBasic extends AbstractWeapon {
     }
 
     //TODO ダメージを計算,保持するクラスを別途作成する
-    public @NotNull Map<ResultCategoryType, Double> generateCategorizedDamage(boolean isIncludeUniqueSpecial) {
+    public Map<ResultCategoryType, Double> generateCategorizedDamage(boolean isIncludeUniqueSpecial) {
         Map<ResultCategoryType, Double> result = new HashMap<>();
         //武器の種類がnullの場合は"剣"として処理する
         WeaponType weaponType = Objects.nonNull(weaponData.getWeaponType()) ? weaponData.getWeaponType() : WeaponType.SWORD;
@@ -62,7 +61,7 @@ public class WeaponBasic extends AbstractWeapon {
     }
 
     @Override
-    public @NotNull List<String> generateResultContext() {
+    public List<String> generateResultContext() {
         List<String> result = new ArrayList<>();
         Map<ResultCategoryType, Double> damages = DamageCalcUtil.removeAllRedundancy(generateCategorizedDamage(true));
         Comparator<ResultCategoryType> comparator = Comparator.comparingDouble(damages::get);

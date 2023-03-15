@@ -4,7 +4,6 @@ import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
 import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -21,7 +20,7 @@ public class WeaponMagicalMixture extends WeaponBasic {
     }
 
     @Override
-    public @NotNull List<String> generateResultContext() {
+    public List<String> generateResultContext() {
         List<String> result = new ArrayList<>();
         Map<ResultCategoryType, Double> damages = DamageCalcUtil.removeAllRedundancy(generateCategorizedDamage(true));
         Comparator<ResultCategoryType> comparator = Comparator.comparingDouble(damages::get);

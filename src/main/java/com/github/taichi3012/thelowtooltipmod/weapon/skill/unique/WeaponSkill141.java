@@ -2,7 +2,6 @@ package com.github.taichi3012.thelowtooltipmod.weapon.skill.unique;
 
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponGekokujo;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class WeaponSkill141 extends WeaponSkillUniqueBase {
     }
 
     @Override
-    public @NotNull List<String> getResultContext(WeaponData weaponData) {
+    public List<String> getResultContext(WeaponData weaponData) {
         return new WeaponGekokujo(weaponData).generateResultContext();
     }
 }

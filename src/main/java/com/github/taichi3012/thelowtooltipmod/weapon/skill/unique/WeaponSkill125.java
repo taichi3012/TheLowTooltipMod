@@ -7,7 +7,6 @@ import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +24,12 @@ public class WeaponSkill125 extends WeaponSkillUniqueBase {
     }
 
     @Override
-    public @NotNull List<String> getResultContext(WeaponData weaponData) {
+    public List<String> getResultContext(WeaponData weaponData) {
         return new ArrayList<>();
     }
 
     @Override
-    public @NotNull List<String> getCoolTimeContext(WeaponData weaponData) {
+    public List<String> getCoolTimeContext(WeaponData weaponData) {
         List<String> result = new ArrayList<>();
         double CTParkMul = TheLowTooltipModConfig.getQuickSpellTalkMultiply();
         double casterMul = MagicStoneUtil.getCasterMultiply(weaponData);

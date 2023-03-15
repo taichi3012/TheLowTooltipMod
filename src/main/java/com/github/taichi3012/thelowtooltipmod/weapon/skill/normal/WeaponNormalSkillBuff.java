@@ -3,7 +3,6 @@ package com.github.taichi3012.thelowtooltipmod.weapon.skill.normal;
 import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
 import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ public class WeaponNormalSkillBuff extends WeaponNormalSkillBase {
     }
 
     @Override
-    public @NotNull List<String> getResultContext(WeaponData weaponData) {
+    public List<String> getResultContext(WeaponData weaponData) {
         return new ArrayList<>();
     }
 

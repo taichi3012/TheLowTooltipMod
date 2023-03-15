@@ -8,7 +8,6 @@ import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.unique.WeaponSkillUniqueBase;
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -45,7 +44,7 @@ public class WeaponSkillBasic extends WeaponSkillUniqueBase {
     }
 
     @Override
-    public @NotNull List<String> getResultContext(WeaponData weaponData) {
+    public List<String> getResultContext(WeaponData weaponData) {
         List<String> result = new ArrayList<>();
 
         if (this.multiply > 0) {
