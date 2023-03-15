@@ -1,9 +1,9 @@
 package com.github.taichi3012.thelowtooltipmod.weapon.skill.unique;
 
+import java.util.List;
+
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponGekokujo;
-
-import java.util.List;
 
 public class WeaponSkill141 extends WeaponSkillUniqueBase {
 

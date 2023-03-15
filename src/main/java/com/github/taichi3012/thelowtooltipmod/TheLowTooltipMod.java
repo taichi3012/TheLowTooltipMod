@@ -1,11 +1,5 @@
 package com.github.taichi3012.thelowtooltipmod;
 
-import com.github.taichi3012.thelowtooltipmod.api.TheLowAPI;
-import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
-import com.github.taichi3012.thelowtooltipmod.listener.GuiParkSelectorListener;
-import com.github.taichi3012.thelowtooltipmod.listener.TooltipListener;
-import com.github.taichi3012.thelowtooltipmod.listener.WebCalcURLGenerateListener;
-import com.github.taichi3012.thelowtooltipmod.weapon.skill.SkillManager;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -18,6 +12,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
+
+import com.github.taichi3012.thelowtooltipmod.api.TheLowAPI;
+import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
+import com.github.taichi3012.thelowtooltipmod.listener.GuiParkSelectorListener;
+import com.github.taichi3012.thelowtooltipmod.listener.TooltipListener;
+import com.github.taichi3012.thelowtooltipmod.listener.WebCalcURLGenerateListener;
+import com.github.taichi3012.thelowtooltipmod.weapon.skill.SkillManager;
 
 @Mod(modid = TheLowTooltipMod.MOD_ID, version = TheLowTooltipMod.VERSION, name = TheLowTooltipMod.MOD_NAME, guiFactory = "com.github.taichi3012.thelowtooltipmod.gui.TheLowTooltipModGuiFactory")
 public class TheLowTooltipMod {

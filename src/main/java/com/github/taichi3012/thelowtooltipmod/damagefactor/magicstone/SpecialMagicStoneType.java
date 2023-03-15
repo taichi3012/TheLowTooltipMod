@@ -1,9 +1,9 @@
 package com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone;
 
+import java.util.function.Predicate;
+
 import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.SpecialAttackable;
-
-import java.util.function.Predicate;
 
 public enum SpecialMagicStoneType implements IMagicStone, SpecialAttackable {
     SKELETON_MAGIC_STONE("スケルトン特攻", "skeleton_attack", c -> c == ResultCategoryType.SKELETON_CATEGORY),

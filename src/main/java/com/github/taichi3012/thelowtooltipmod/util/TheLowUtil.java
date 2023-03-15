@@ -1,14 +1,15 @@
 package com.github.taichi3012.thelowtooltipmod.util;
 
-import com.github.taichi3012.thelowtooltipmod.api.TheLowAPI;
-import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
-import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
-import com.github.taichi3012.thelowtooltipmod.damagefactor.WeaponType;
+import java.util.*;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.item.ItemStack;
 
-import java.util.*;
+import com.github.taichi3012.thelowtooltipmod.api.TheLowAPI;
+import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.WeaponType;
 
 public class TheLowUtil {
     public static WeaponType generateWeaponType(ItemStack stack) {
@@ -44,7 +45,7 @@ public class TheLowUtil {
             return 0.0d;
         }
 
-        return  Arrays.stream(player.inventory.armorInventory)
+        return Arrays.stream(player.inventory.armorInventory)
                 .mapToDouble(equip -> generateEquipAttackGain(equip).get(weaponType))
                 .sum();
     }
@@ -121,7 +122,7 @@ public class TheLowUtil {
                         e.printStackTrace();
                         return;
                     }
-                    
+
                     result.put(weaponType, gain);
                 });
 
@@ -147,9 +148,9 @@ public class TheLowUtil {
         try {
             return Integer.parseInt(
                     stack.getDisplayName()
-                    .replaceAll(".*\\(", "")
-                    .replaceAll("/\\d+", "")
-                    .replaceAll("\\)$", "")
+                            .replaceAll(".*\\(", "")
+                            .replaceAll("/\\d+", "")
+                            .replaceAll("\\)$", "")
             );
         } catch (NumberFormatException e) {
             e.printStackTrace();

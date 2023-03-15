@@ -1,9 +1,9 @@
 package com.github.taichi3012.thelowtooltipmod.listener;
 
-import com.github.taichi3012.thelowtooltipmod.api.TheLowDamageCalculationURLBuilder;
-import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
-import com.github.taichi3012.thelowtooltipmod.util.TheLowNBTUtil;
-import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiNewChat;
@@ -22,9 +22,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
 
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
+import com.github.taichi3012.thelowtooltipmod.api.TheLowDamageCalculationURLBuilder;
+import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
+import com.github.taichi3012.thelowtooltipmod.util.TheLowNBTUtil;
+import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 
 import static com.github.taichi3012.thelowtooltipmod.TheLowTooltipMod.MOD_NAME;
 import static com.github.taichi3012.thelowtooltipmod.TheLowTooltipMod.keyCopyWebCalculationURL;

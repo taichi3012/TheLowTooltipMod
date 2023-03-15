@@ -1,11 +1,8 @@
 package com.github.taichi3012.thelowtooltipmod.listener;
 
-import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
-import com.github.taichi3012.thelowtooltipmod.util.TheLowNBTUtil;
-import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
-import com.github.taichi3012.thelowtooltipmod.weapon.*;
-import com.github.taichi3012.thelowtooltipmod.weapon.skill.SkillManager;
-import com.github.taichi3012.thelowtooltipmod.weapon.skill.WeaponSkillBase;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiScreen;
@@ -13,8 +10,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
+import com.github.taichi3012.thelowtooltipmod.util.TheLowNBTUtil;
+import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
+import com.github.taichi3012.thelowtooltipmod.weapon.*;
+import com.github.taichi3012.thelowtooltipmod.weapon.skill.SkillManager;
+import com.github.taichi3012.thelowtooltipmod.weapon.skill.WeaponSkillBase;
 
 import static com.github.taichi3012.thelowtooltipmod.api.TheLowAPI.requestPlayerStatus;
 

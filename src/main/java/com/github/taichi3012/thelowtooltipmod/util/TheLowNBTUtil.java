@@ -1,11 +1,12 @@
 package com.github.taichi3012.thelowtooltipmod.util;
 
-import com.github.taichi3012.thelowtooltipmod.damagefactor.UniqueSpecialType;
-import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.MagicStoneData;
+import java.util.*;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import java.util.*;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.UniqueSpecialType;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.MagicStoneData;
 
 public class TheLowNBTUtil {
     public static double getDamage(ItemStack stack) {

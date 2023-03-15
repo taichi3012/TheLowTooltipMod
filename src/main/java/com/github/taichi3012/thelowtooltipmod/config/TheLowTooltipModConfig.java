@@ -1,9 +1,10 @@
 package com.github.taichi3012.thelowtooltipmod.config;
 
-import com.github.taichi3012.thelowtooltipmod.TheLowTooltipMod;
-import com.github.taichi3012.thelowtooltipmod.damagefactor.WeaponType;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
+import com.github.taichi3012.thelowtooltipmod.TheLowTooltipMod;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.WeaponType;
 
 public class TheLowTooltipModConfig {
     public static final String GENERAL_CATEGORY = "General";

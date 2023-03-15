@@ -1,16 +1,17 @@
 package com.github.taichi3012.thelowtooltipmod.weapon;
 
-import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
-import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
-import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
-import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
-import net.minecraft.item.ItemStack;
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+
+import net.minecraft.item.ItemStack;
+import org.apache.commons.lang3.StringUtils;
+
+import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
+import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
+import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 
 public class WeaponAmrudad extends WeaponBasic {
 

@@ -1,5 +1,8 @@
 package com.github.taichi3012.thelowtooltipmod.util;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.SpecialAttackable;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.UniqueSpecialType;
@@ -7,13 +10,11 @@ import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.SpecialMag
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 public class DamageCalcUtil {
 
     /**
      * 冗長な要素を削除する
+     *
      * @param damages カテゴライズ済みダメージ
      */
     public static Map<ResultCategoryType, Double> removeAllRedundancy(Map<ResultCategoryType, Double> damages) {

@@ -1,5 +1,7 @@
 package com.github.taichi3012.thelowtooltipmod.api;
 
+import java.util.*;
+
 import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.WeaponType;
@@ -10,8 +12,6 @@ import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
 import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-
-import java.util.*;
 
 public class TheLowDamageCalculationURLBuilder {
     public static final String URL_BASE = "taichi3012.github.io/ThelowDamageCalculation/";

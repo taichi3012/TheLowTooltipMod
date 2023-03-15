@@ -1,13 +1,14 @@
 package com.github.taichi3012.thelowtooltipmod.gui;
 
-import com.github.taichi3012.thelowtooltipmod.TheLowTooltipMod;
-import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
-import com.github.taichi3012.thelowtooltipmod.damagefactor.WeaponType;
-import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
+
+import com.github.taichi3012.thelowtooltipmod.TheLowTooltipMod;
+import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.WeaponType;
+import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 
 public class InventoryParkSelector extends InventoryBasic {
     public InventoryParkSelector(InventoryBasic inventoryBasic) {

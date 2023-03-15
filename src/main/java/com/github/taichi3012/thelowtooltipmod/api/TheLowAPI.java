@@ -1,6 +1,11 @@
 package com.github.taichi3012.thelowtooltipmod.api;
 
-import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
@@ -8,11 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
 
 public class TheLowAPI {
     public static final int API_VERSION = 1;
@@ -36,7 +37,7 @@ public class TheLowAPI {
     public static boolean processResponse(ClientChatReceivedEvent event) throws RuntimeException {
         String message = event.message.getUnformattedText();
 
-        if (!message.startsWith("$api") ) {
+        if (!message.startsWith("$api")) {
             return false;
         }
 

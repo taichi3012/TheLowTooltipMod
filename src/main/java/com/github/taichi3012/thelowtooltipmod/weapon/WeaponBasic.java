@@ -1,15 +1,16 @@
 package com.github.taichi3012.thelowtooltipmod.weapon;
 
+import java.util.*;
+
+import net.minecraft.item.ItemStack;
+import org.apache.commons.lang3.StringUtils;
+
 import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.WeaponType;
 import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
 import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
-import net.minecraft.item.ItemStack;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.*;
 
 public class WeaponBasic extends AbstractWeapon {
     protected final WeaponData weaponData;

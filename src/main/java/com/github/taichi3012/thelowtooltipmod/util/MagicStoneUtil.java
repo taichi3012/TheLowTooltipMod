@@ -1,14 +1,14 @@
 package com.github.taichi3012.thelowtooltipmod.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.IMagicStone;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.MagicStoneData;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.PassiveMagicStoneType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.SpecialMagicStoneType;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.MagicStoneLevelType.*;
 import static com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.OtherMagicStoneType.UNKNOWN_MAGIC_STONE;

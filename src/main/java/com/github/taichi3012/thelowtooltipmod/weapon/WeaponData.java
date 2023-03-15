@@ -1,5 +1,11 @@
 package com.github.taichi3012.thelowtooltipmod.weapon;
 
+import java.util.List;
+import java.util.Map;
+import java.util.OptionalDouble;
+
+import net.minecraft.item.ItemStack;
+
 import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.UniqueSpecialType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.WeaponType;
@@ -7,11 +13,6 @@ import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.MagicStone
 import com.github.taichi3012.thelowtooltipmod.damagefactor.magicstone.SpecialMagicStoneType;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowNBTUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
-import net.minecraft.item.ItemStack;
-
-import java.util.List;
-import java.util.Map;
-import java.util.OptionalDouble;
 
 public class WeaponData {
     private final ItemStack itemStack;
@@ -77,8 +78,7 @@ public class WeaponData {
                 .mapToDouble(data -> data.getLevel().getDamageMultiply())
                 .reduce((v1, v2) -> v1 * v2);
 
-        return op.isPresent() ? op.getAsDouble()
-                :1.0d;
+        return op.isPresent() ? op.getAsDouble() : 1.0d;
     }
 
 }

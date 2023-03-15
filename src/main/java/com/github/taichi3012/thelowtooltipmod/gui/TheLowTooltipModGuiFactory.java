@@ -1,14 +1,15 @@
 package com.github.taichi3012.thelowtooltipmod.gui;
 
-import com.github.taichi3012.thelowtooltipmod.TheLowTooltipMod;
-import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
+import java.util.Set;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.fml.client.IModGuiFactory;
 import net.minecraftforge.fml.client.config.GuiConfig;
 
-import java.util.Set;
+import com.github.taichi3012.thelowtooltipmod.TheLowTooltipMod;
+import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
 
 public class TheLowTooltipModGuiFactory implements IModGuiFactory {
     @Override

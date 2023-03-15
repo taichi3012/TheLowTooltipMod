@@ -1,5 +1,12 @@
 package com.github.taichi3012.thelowtooltipmod.weapon.skill.normal;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
 import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
 import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
@@ -8,12 +15,6 @@ import com.github.taichi3012.thelowtooltipmod.util.TheLowNBTUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
 
 public class WeaponNormalSkillAttack extends WeaponNormalSkillBase {
 

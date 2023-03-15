@@ -1,11 +1,11 @@
 package com.github.taichi3012.thelowtooltipmod.weapon.skill.normal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
 import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class WeaponNormalSkillRemoveFire extends WeaponNormalSkillBase {
 

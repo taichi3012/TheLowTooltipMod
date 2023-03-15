@@ -1,10 +1,10 @@
 package com.github.taichi3012.thelowtooltipmod.weapon.skill.unique;
 
-import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-import com.github.taichi3012.thelowtooltipmod.weapon.skill.WeaponSkillBase;
-
 import java.util.Collections;
 import java.util.List;
+
+import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
+import com.github.taichi3012.thelowtooltipmod.weapon.skill.WeaponSkillBase;
 
 public abstract class WeaponSkillUniqueBase extends WeaponSkillBase {
 

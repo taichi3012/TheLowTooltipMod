@@ -1,16 +1,17 @@
 package com.github.taichi3012.thelowtooltipmod.weapon;
 
-import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
-import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
-import net.minecraft.item.ItemStack;
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-public class WeaponPlaceLight extends WeaponBasic{
+import net.minecraft.item.ItemStack;
+import org.apache.commons.lang3.StringUtils;
+
+import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
+import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
+
+public class WeaponPlaceLight extends WeaponBasic {
     public WeaponPlaceLight(WeaponData weaponData) {
         super(weaponData);
     }

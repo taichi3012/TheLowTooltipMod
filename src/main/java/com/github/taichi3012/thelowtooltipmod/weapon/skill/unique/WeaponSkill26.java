@@ -1,17 +1,18 @@
 package com.github.taichi3012.thelowtooltipmod.weapon.skill.unique;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
 import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
 import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
 import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
 
 public class WeaponSkill26 extends WeaponSkillUniqueBase {
 
@@ -44,7 +45,7 @@ public class WeaponSkill26 extends WeaponSkillUniqueBase {
                     result.add(String.format(StringUtils.repeat(' ', 4) + "§7鈍足あり:§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(slowAbleDamage), DamageCalcUtil.roundCriticalDamage(slowAbleDamage)));
 
                     if (isLightning) {
-                        result.add(String.format(StringUtils.repeat(' ', 4) + "§7鈍足なし§e(範囲)§7:§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(normalDamage / 4.0d), DamageCalcUtil.roundCriticalDamage(slowAbleDamage/ 4.0d)));
+                        result.add(String.format(StringUtils.repeat(' ', 4) + "§7鈍足なし§e(範囲)§7:§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(normalDamage / 4.0d), DamageCalcUtil.roundCriticalDamage(slowAbleDamage / 4.0d)));
                         result.add(String.format(StringUtils.repeat(' ', 4) + "§7鈍足あり§e(範囲)§7:§6+%1$s§c§o(+%2$s)", DamageCalcUtil.roundDamage(slowAbleDamage / 4.0d), DamageCalcUtil.roundCriticalDamage(slowAbleDamage / 4.0d)));
                     }
                 });

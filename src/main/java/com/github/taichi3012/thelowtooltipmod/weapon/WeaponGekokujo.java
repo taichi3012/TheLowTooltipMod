@@ -1,14 +1,15 @@
 package com.github.taichi3012.thelowtooltipmod.weapon;
 
+import java.util.*;
+
+import net.minecraft.item.ItemStack;
+import org.apache.commons.lang3.StringUtils;
+
 import com.github.taichi3012.thelowtooltipmod.damagefactor.JobType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.UniqueSpecialType;
 import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
-import net.minecraft.item.ItemStack;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.*;
 
 public class WeaponGekokujo extends WeaponBasic {
     public WeaponGekokujo(WeaponData weaponData) {
@@ -29,8 +30,8 @@ public class WeaponGekokujo extends WeaponBasic {
         Set<UniqueSpecialType> specials = weaponData.getSpecialDamageList().keySet();
         //武器の固有特攻で聖剣か冥剣かを判断
         boolean isJobApply =
-                (job.equals(JobType.SKULL_PIERCER) && specials.contains(UniqueSpecialType.SKELETON_SPECIAL_DAMAGE)) ||
-                (job.equals(JobType.DARK_BLASTER) && specials.contains(UniqueSpecialType.ZOMBIE_SPECIAL_DAMAGE));
+                (job.equals(JobType.SKULL_PIERCER) && specials.contains(UniqueSpecialType.SKELETON_SPECIAL_DAMAGE))
+                || (job.equals(JobType.DARK_BLASTER) && specials.contains(UniqueSpecialType.ZOMBIE_SPECIAL_DAMAGE));
 
         result.add("§4[ダメージ]");
         damages.keySet().stream().sorted(comparator.reversed())

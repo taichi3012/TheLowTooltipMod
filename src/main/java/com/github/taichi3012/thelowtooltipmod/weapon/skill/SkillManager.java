@@ -1,14 +1,14 @@
 package com.github.taichi3012.thelowtooltipmod.weapon.skill;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.normal.WeaponNormalSkillAttack;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.normal.WeaponNormalSkillBase;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.normal.WeaponNormalSkillBuff;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.unique.*;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SkillManager {
 

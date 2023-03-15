@@ -1,11 +1,11 @@
 package com.github.taichi3012.thelowtooltipmod.weapon.skill;
 
-import com.github.taichi3012.thelowtooltipmod.util.JavaUtil;
-import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.github.taichi3012.thelowtooltipmod.util.JavaUtil;
+import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 
 public interface IWeaponSkillAble {
     String getId();
@@ -28,7 +28,7 @@ public interface IWeaponSkillAble {
         return new ArrayList<>(
                 Collections.singleton(
                         String.format("§3[クールタイム]§e -> %1$s秒", JavaUtil.digitRound(ct, 2.0d)))
-                );
+        );
     }
 
     double getCoolTime(WeaponData weaponData);

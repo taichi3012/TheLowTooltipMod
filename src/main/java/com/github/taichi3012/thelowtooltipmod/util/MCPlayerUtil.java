@@ -1,5 +1,8 @@
 package com.github.taichi3012.thelowtooltipmod.util;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;

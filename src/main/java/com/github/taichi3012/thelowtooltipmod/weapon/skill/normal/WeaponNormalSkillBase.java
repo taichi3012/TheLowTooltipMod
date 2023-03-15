@@ -1,10 +1,10 @@
 package com.github.taichi3012.thelowtooltipmod.weapon.skill.normal;
 
+import java.util.Arrays;
+
 import com.github.taichi3012.thelowtooltipmod.util.TheLowNBTUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.WeaponSkillBase;
-
-import java.util.Arrays;
 
 public abstract class WeaponNormalSkillBase extends WeaponSkillBase {
 

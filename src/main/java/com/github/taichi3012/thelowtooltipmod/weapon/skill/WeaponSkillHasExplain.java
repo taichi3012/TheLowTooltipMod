@@ -1,5 +1,9 @@
 package com.github.taichi3012.thelowtooltipmod.weapon.skill;
 
+import java.util.*;
+
+import org.apache.commons.lang3.StringUtils;
+
 import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
 import com.github.taichi3012.thelowtooltipmod.damagefactor.ResultCategoryType;
 import com.github.taichi3012.thelowtooltipmod.util.DamageCalcUtil;
@@ -8,9 +12,6 @@ import com.github.taichi3012.thelowtooltipmod.util.MagicStoneUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponBasic;
 import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.unique.WeaponSkillUniqueBase;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.*;
 
 public class WeaponSkillHasExplain extends WeaponSkillUniqueBase {
 

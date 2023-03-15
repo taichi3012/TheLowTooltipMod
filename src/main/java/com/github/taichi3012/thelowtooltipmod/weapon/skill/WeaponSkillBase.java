@@ -1,11 +1,11 @@
 package com.github.taichi3012.thelowtooltipmod.weapon.skill;
 
-import com.github.taichi3012.thelowtooltipmod.util.JavaUtil;
-import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.github.taichi3012.thelowtooltipmod.util.JavaUtil;
+import com.github.taichi3012.thelowtooltipmod.weapon.WeaponData;
 
 public abstract class WeaponSkillBase {
 
