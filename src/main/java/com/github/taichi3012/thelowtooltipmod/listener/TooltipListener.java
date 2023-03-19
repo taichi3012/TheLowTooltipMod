@@ -2,27 +2,30 @@ package com.github.taichi3012.thelowtooltipmod.listener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import com.github.taichi3012.thelowtooltipmod.api.TheLowAPI;
 import com.github.taichi3012.thelowtooltipmod.config.TheLowTooltipModConfig;
+import com.github.taichi3012.thelowtooltipmod.util.ItemNBTUtil;
+import com.github.taichi3012.thelowtooltipmod.util.MCPlayerUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowNBTUtil;
 import com.github.taichi3012.thelowtooltipmod.util.TheLowUtil;
 import com.github.taichi3012.thelowtooltipmod.weapon.*;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.SkillManager;
 import com.github.taichi3012.thelowtooltipmod.weapon.skill.WeaponSkillBase;
 
-import static com.github.taichi3012.thelowtooltipmod.api.TheLowAPI.requestPlayerStatus;
-
 /**
  * @author taichi1230
  */
 public class TooltipListener {
+
+    private static final String SKILL_SELECTOR_SKILL_ID_KEY = "view_weapon_skill_id";
+
     @SubscribeEvent
     public void onItemTooltip(ItemTooltipEvent event) {
         if (TheLowTooltipModConfig.isTooltipEnable() && GuiScreen.isCtrlKeyDown()) {
@@ -31,118 +34,93 @@ public class TooltipListener {
     }
 
     private void addResult(ItemTooltipEvent event) {
-        ItemStack stack = event.itemStack;
+        final ItemStack stack = event.itemStack;
 
         if (stack.getTagCompound() == null) {
             return;
         }
 
-        if (TheLowNBTUtil.hasDamage(event.itemStack)) {
-            WeaponBasic weapon = null;
-            requestPlayerStatus(false);
+        final List<String> toolTip = event.toolTip;
+        List<String> context = new ArrayList<>();
+        int cursor = toolTip.size() - (event.showAdvancedItemTooltips ? 2 : 0);
 
-            String skillSetId = TheLowNBTUtil.getSkillSetID(stack);
+        if (TheLowNBTUtil.hasDamage(event.itemStack)) {
+            AbstractWeapon weapon = new WeaponBasic(stack);
+
             if (TheLowUtil.isMagicMixtureWeapon(event.itemStack)) {
                 weapon = new WeaponMagicalMixture(stack);
-            } else if (skillSetId != null) {
-                switch (skillSetId) {
-                    case "12":
-                        weapon = new WeaponPlaceLight(stack);
-                        break;
-                    case "29":
-                        weapon = new WeaponAmrudad(stack);
-                        break;
-                    case "36":
-                        weapon = new WeaponGekokujo(stack);
-                        break;
-                }
             }
 
-            if (weapon == null) {
-                weapon = new WeaponBasic(stack);
-            }
-
-            //アイテムの名前と結果のみ表示する設定が有効なときはここで返す。
-            if (TheLowTooltipModConfig.isOnlyDisplayResultAndNameEnable()) {
-                String itemDisplayName = event.toolTip.get(0);
-                event.toolTip.clear();
-                event.toolTip.add(itemDisplayName);
-                event.toolTip.addAll(weapon.generateResultContext());
-                return;
-            }
-
-            int cursor = event.showAdvancedItemTooltips ? event.toolTip.size() - 2 : event.toolTip.size();
-            for (String str : event.toolTip) {
-                if (str.contains("[SLOT]")) {
-                    cursor = event.toolTip.indexOf(str);
+            switch (TheLowNBTUtil.getSkillSetID(stack)) {
+                case "12":
+                    weapon = new WeaponPlaceLight(stack);
                     break;
-                }
+                case "29":
+                    weapon = new WeaponAmrudad(stack);
+                    break;
+                case "36":
+                    weapon = new WeaponGekokujo(stack);
+                    break;
             }
 
-            event.toolTip.addAll(cursor, weapon.generateResultContext());
-            cursor += weapon.generateResultContext().size();
-            event.toolTip.add(cursor, "");
+            context = weapon.generateResultContext();
+            cursor = toolTip.stream()
+                    .filter(str -> str.contains("[SLOT]"))
+                    .mapToInt(toolTip::indexOf)
+                    .findFirst()
+                    .orElse(cursor);
 
-            return;
-        }
+        } else if (this.isSkillSelector(stack)) {
+            Optional<ItemStack> opt = MCPlayerUtil.getPlayerHeldStack();
 
-        if (stack.getTagCompound().hasKey("view_weapon_skill_id")) {
-            EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-            if (player == null) {
+            if (!opt.isPresent()) {
                 return;
             }
 
-            ItemStack heldStack = player.getCurrentEquippedItem();
-            if (heldStack == null || !TheLowNBTUtil.hasDamage(heldStack)) {
+            ItemStack heldStack = opt.get();
+
+            if (!TheLowNBTUtil.hasDamage(heldStack)) {
                 return;
             }
 
             WeaponData weaponData = new WeaponData(heldStack);
-            WeaponSkillBase skill = SkillManager.getSkill(weaponData, stack.getTagCompound().getString("view_weapon_skill_id"));
-            requestPlayerStatus(false);
+            WeaponSkillBase skill = SkillManager.getSkill(weaponData, ItemNBTUtil.getStringTag(stack, SKILL_SELECTOR_SKILL_ID_KEY));
 
-            if (skill != null && skill.isActive(new WeaponData(heldStack))) {
-                List<String> result = new ArrayList<>();
-
-                List<String> resultContext = skill.getResultContext(weaponData);
-                if (TheLowTooltipModConfig.isSkillResultContextEnable() && !resultContext.isEmpty()) {
-                    result.addAll(skill.getResultContext(weaponData));
-                }
-
-                List<String> coolTimeContext = skill.getCoolTimeContext(weaponData);
-                if (TheLowTooltipModConfig.isSkillCoolTimeContextEnable() && !coolTimeContext.isEmpty()) {
-                    if (!result.isEmpty()) {
-                        result.add("");
-                    }
-                    result.addAll(coolTimeContext);
-                }
-
-                //結果がないときは返す。
-                if (result.isEmpty()) {
-                    return;
-                }
-
-                //アイテムの名前と結果のみ表示する設定が有効なときはここで返す。
-                if (TheLowTooltipModConfig.isOnlyDisplayResultAndNameEnable()) {
-                    String itemDisplayName = event.toolTip.get(0);
-                    event.toolTip.clear();
-                    event.toolTip.add(itemDisplayName);
-                    event.toolTip.addAll(result);
-                    return;
-                }
-
-                int cursor = event.showAdvancedItemTooltips ? event.toolTip.size() - 2 : event.toolTip.size();
-                for (String str : event.toolTip) {
-                    if (str.contains("スキル発動中") || str.contains("クリックしてスキルを")) {
-                        cursor = event.toolTip.indexOf(str);
-                        break;
-                    }
-                }
-
-                event.toolTip.addAll(cursor, result);
-                cursor += result.size();
-                event.toolTip.add(cursor, "");
+            if (skill == null || !skill.isActive(weaponData)) {
+                return;
             }
+
+            //スキルダメージ表記など
+            if (TheLowTooltipModConfig.isSkillResultContextEnable()) {
+                context.addAll(skill.getResultContext(weaponData));
+            }
+
+            //スキルクールタイム表記
+            if (TheLowTooltipModConfig.isSkillCoolTimeContextEnable()) {
+                //仕切りのために改行する
+                if (!context.isEmpty()) {
+                    context.add("");
+                }
+                context.addAll(skill.getCoolTimeContext(weaponData));
+            }
+
+            cursor = toolTip.stream()
+                    .filter(str -> str.contains("スキル発動中") || str.contains("クリックしてスキルを"))
+                    .mapToInt(toolTip::indexOf)
+                    .findFirst()
+                    .orElse(cursor);
+        } else {
+            return;
         }
+
+        TheLowAPI.requestPlayerStatus(false);
+
+        context.add("");
+        toolTip.addAll(cursor, context);
     }
+
+    private boolean isSkillSelector(ItemStack stack) {
+        return stack.getTagCompound().hasKey(SKILL_SELECTOR_SKILL_ID_KEY);
+    }
+
 }
