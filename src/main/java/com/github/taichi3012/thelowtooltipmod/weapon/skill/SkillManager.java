@@ -1,5 +1,6 @@
 package com.github.taichi3012.thelowtooltipmod.weapon.skill;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -114,7 +115,7 @@ public class SkillManager {
         register(new WeaponSkillHasExplain("wskill101", "炎帝 ~バジリスクの炎息~", "26", 45.0d, 0.0d,
                 new String[]{"通常", "猛火斬り有効"}, false, new double[]{8.0d, 8.0d * 1.44d}));
         register(new WeaponSkillBasic("wskill102", "猛火斬り", "26", 20.0d, 10.0d, true, 1.44));
-        register(new WeaponSkillBasic("wskill103", "鎮火", "26,33", 20.0d, 0.0d));
+        register(new WeaponSkillBasic("wskill103", "鎮火", Arrays.asList("26", "33"), 20.0d, 0.0d, true, 0.0d));
         register(new WeaponSkillBasic("wskill104", "火傷", "26", true, 1.2d));
 
         register(new WeaponSkillBasic("wskill105", "ブリザードストライク", "27", 60.0d, 0.0d));
